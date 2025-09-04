@@ -3,17 +3,17 @@ using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 
 namespace ConsoleCS_ProjectManagementSystem.Model.DataType.Rules
 {
-    public class ExitRuleRead : IRule
+    public class ViewTaskRuleRead : IRule
     {
-        public string Name { get; set; } = "ExitRead";
-        public string Description { get; set; } = "Закрытие приложения";
+        public string Name { get; set; } = "ViewTaskRead";
+        public string Description { get; set; } = "Просмотр задач";
         public FilePermissionsEnum Permissions { get; set; } = FilePermissionsEnum.Read;
     }
 
-    public class ExitRuleWrite : IRule
+    public class ViewTaskRuleWrite : IRule
     {
-        public string Name { get; set; } = "ExitWrite";
-        public string Description { get; set; } = "Закрытие приложения";
+        public string Name { get; set; } = "ViewTaskWrite";
+        public string Description { get; set; } = "Просмотр задач";
         public FilePermissionsEnum Permissions { get; set; } = FilePermissionsEnum.ReadAndWrite;
     }
 }
