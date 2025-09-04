@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 using ConsoleCS_ProjectManagementSystem.Model.DataType.AccessGroups;
 using ConsoleCS_ProjectManagementSystem.Model.DataType.Rules;
 using ConsoleCS_ProjectManagementSystem.Model.DataType.Rules.Default;
@@ -42,13 +44,13 @@ namespace ConsoleCS_ProjectManagementSystem
             List<DefaultAccessGroup> group = new List<DefaultAccessGroup>();
             group.Add(manager);
             group.Add(user);
-            string json = JsonSerializer.Serialize(group, new JsonSerializerOptions { WriteIndented = true });
+            string json = JsonSerializer.Serialize(group, new JsonSerializerOptions { WriteIndented = true  });
             string baza;
-            using (StreamReader stream = new StreamReader(filePath))
+            using (StreamWriter stream = new StreamWriter(filePath, false))
             {
-                baza = stream.ReadToEnd();
+                stream.WriteLine();
             }
-            group = JsonSerializer.Deserialize<List<DefaultAccessGroup>>(baza);
+            //group = JsonSerializer.Deserialize<List<DefaultAccessGroup>>(baza);
 
             //IServiceCollection services = new ServiceCollection();
             //AddServices(services);
