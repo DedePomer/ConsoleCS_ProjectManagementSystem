@@ -1,73 +1,56 @@
-﻿using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Unicode;
-using ConsoleCS_ProjectManagementSystem.Model.DataType.AccessGroups;
-using ConsoleCS_ProjectManagementSystem.Model.DataType.Rules;
-using ConsoleCS_ProjectManagementSystem.Model.DataType.Rules.Default;
-using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+using ConsoleCS_ProjectManagementSystem.Pages;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace ConsoleCS_ProjectManagementSystem
 {
-    internal class Program
+    public class Program
     {
-        private static ServiceProvider _serviceProvider;
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            string file = @"AccessGroups.json";
-            string relativePath = Path.Combine("Configs", file);
-            string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            string filePath = Path.Combine(projectDirectory, relativePath);
-            DefaultAccessGroup manager = new DefaultAccessGroup()
-            {
-                  Name = "Manager",
-                  Description = "Менеджер",
-                  Rules = new List<DefaultRule>()
-                  { 
-                    new ExitRuleRead(),
-                    new ViewTaskRuleRead(),
-                    new AddUserRuleRead()
-                  }                 
-            };
-            DefaultAccessGroup user = new DefaultAccessGroup()
-            {
-                Name = "DefaultUser",
-                Description = "Обычный пользователь",
-                Rules = new List<DefaultRule>()
-                {
-                  new ExitRuleRead(),
-                  new ViewTaskRuleRead()
-                }
-            };
-            List<DefaultAccessGroup> group = new List<DefaultAccessGroup>();
-            group.Add(manager);
-            group.Add(user);
-            string json = JsonSerializer.Serialize(group, new JsonSerializerOptions { WriteIndented = true  });
-            string baza;
-            using (StreamWriter stream = new StreamWriter(filePath, false))
-            {
-                stream.WriteLine();
-            }
-            //group = JsonSerializer.Deserialize<List<DefaultAccessGroup>>(baza);
 
-            //IServiceCollection services = new ServiceCollection();
-            //AddServices(services);
-            //_serviceProvider = services.BuildServiceProvider();
-            //ProgramStartup();
+            var builder = Host.CreateApplicationBuilder(args);
+
+            var logPath = builder.Configuration["LogPath"];
+            ArgumentNullException.ThrowIfNullOrEmpty(logPath, nameof(logPath));
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.File(logPath)
+                .CreateLogger();
+
+            builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog();
+            builder.Configuration.AddJsonFile("appsettings.json");
+
+            AddServices(builder.Services);
+            AddDatabase(builder.Services, builder.Configuration);
+
+            var app = builder.Build();
+
+            var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
+            dbInitializer.Initialize();
+            app.Services.GetRequiredService<MainMenuPage>();
+
+            app.Run();
         }
 
 
-        //private static void ProgramStartup()
-        //{
-        //    _serviceProvider.GetService<MainPage>();
-        //}
+        private static void AddServices(IServiceCollection services)
+        {
+            services.AddSingleton<MainMenuPage>();
+            services.AddTransient<DbInitializer>();
+        }
 
-        //private static void AddServices(IServiceCollection services)
-        //{
-        //    services.AddTransient<MainPage>();
-        //    services.AddSingleton<INavigationBetweenPages, NavigationBetweenPagesService>();
-        //}
+        private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
+        {
+            var databasePath = configuration["DatabasePath"];
+            ArgumentNullException.ThrowIfNullOrEmpty(databasePath, nameof(databasePath));
+            services.AddSingleton<IDbConnectionFactory>(new SqliteConnectionFactory(databasePath));
+        }
     }
 }

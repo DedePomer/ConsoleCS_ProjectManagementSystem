@@ -6,15 +6,15 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType.Rules
 {
     public class AddUserRuleRead: DefaultRule
     {
-        public string Name { get; set; } = "AddUserRead";
-        public string Description { get; set; } = "Добавление пользователя";
-        public FilePermissionsEnum Permissions { get; set; } = FilePermissionsEnum.Read;
+        public override string Name { get; set; } = "AddUserRead";
+        public override string Description { get; set; } = "Добавление пользователя";
+        public override FilePermissionsEnum Permissions { get; set; } = FilePermissionsEnum.Read;    
     }
 
     public class AddUserRuleWrite : DefaultRule
     {
-        public string Name { get; set; } = "AddUserWrite";
-        public string Description { get; set; } = "Добавление пользователя";
-        public FilePermissionsEnum Permissions { get; set; } = FilePermissionsEnum.ReadAndWrite;
+        public override string Name { get; set; } = "AddUserWrite";
+        public override string Description { get; set; } = "Добавление пользователя";
+        public override FilePermissionsEnum Permissions { get; set; } = FilePermissionsEnum.ReadAndWrite;
     }
 }
