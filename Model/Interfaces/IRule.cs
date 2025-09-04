@@ -1,6 +1,6 @@
 ﻿namespace ConsoleCS_ProjectManagementSystem.Model.Interfaces
 {
-    interface IRule
+    public interface IRule
     {
         public string Name { get; set; }
         public string Description { get; set; }
