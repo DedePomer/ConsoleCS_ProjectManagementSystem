@@ -36,6 +36,7 @@ namespace ConsoleCS_ProjectManagementSystem
             dbInitializer.Initialize();
             var mainMenu = app.Services.GetRequiredService<MainMenuPage>();
 
+            
             mainMenu.Open();
             app.Run();
         }
