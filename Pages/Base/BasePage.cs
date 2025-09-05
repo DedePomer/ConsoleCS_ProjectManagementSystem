@@ -17,6 +17,8 @@
 
         public virtual void DisplayPage(List<string> elements, string title = STANDART_TITLE)
         {
+            Console.Clear();
+
             Console.WriteLine(title);
 
             foreach (string element in elements)
