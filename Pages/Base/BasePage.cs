@@ -2,6 +2,7 @@
 {
     public abstract class BasePage
     {
+        private const bool CURSOR_VISIBLE = false;
         private const string STANDART_TITLE = """
             Управление:
             стрелки вниз, вверх - выбор элемента меню
@@ -17,6 +18,11 @@
 
         public virtual void DisplayPage(List<string> elements, string title = STANDART_TITLE)
         {
+            if (Console.CursorVisible == true)
+            {
+                Console.CursorVisible = CURSOR_VISIBLE;
+            }
+
             Console.Clear();
 
             Console.WriteLine(title);
