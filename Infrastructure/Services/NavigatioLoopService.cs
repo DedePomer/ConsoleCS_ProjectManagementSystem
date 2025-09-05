@@ -8,6 +8,8 @@
         private readonly List<string> _elemments;
         private readonly int _cursorPosition;
 
+        public ConsoleKey PressedKey { get; private set; }
+
         public NavigatioLoopService(List<string> elemments, int cursorPosition)
         {
             _elemments = elemments;
@@ -66,7 +68,7 @@
 
             HighlightElement(topCursorPosition, topCursorPosition);
 
-            GetPressedKey(topCursorPosition, downCursorPosition);
+            PressedKey = GetPressedKey(topCursorPosition, downCursorPosition);
 
             return topCursorPosition - _cursorPosition;
         }

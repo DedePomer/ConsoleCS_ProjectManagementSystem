@@ -8,11 +8,11 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
     public class MainMenuPage : BasePage
     {
         public override void Open()
-        {            
+        {
             MainMenuPageBuilder builder = new MainMenuPageBuilder();
             List<MenuElement> elements = builder
-                .AddElement(1, "Создать нового пользователя", (object? obj) => { Environment.Exit(0); })
-                .AddElement(2, "Посмотреть задачи", (object? obj) => { Environment.Exit(0); })
+                .AddElement(1, "Создать нового пользователя", (object? obj) => { })
+                .AddElement(2, "Посмотреть задачи", (object? obj) => { })
                 .AddElement(3, "Выход", (object? obj) => { Environment.Exit(0); })
                 .Build();
 
