@@ -10,12 +10,12 @@
 
             """;
 
-        private int CountStrokeInTitle(string text)
+        public int GetCountStrokeInTitle(string title = STANDART_TITLE)
         {
-            return text.Where(x => x == '\n').Count() + 1;
+            return title.Where(x => x == '\n').Count() + 1;
         }
 
-        public virtual int DisplayPage(List<string> elements, string title = STANDART_TITLE)
+        public virtual void DisplayPage(List<string> elements, string title = STANDART_TITLE)
         {
             Console.WriteLine(title);
 
@@ -23,8 +23,6 @@
             {
                 Console.WriteLine($"{element}");
             }
-
-            return CountStrokeInTitle(title);
         }
         public abstract void Open();
     }

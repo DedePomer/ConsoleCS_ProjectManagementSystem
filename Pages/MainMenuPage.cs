@@ -18,8 +18,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             List<string> namesElements = elements.Select(x => x.Name).ToList();
 
+            DisplayPage(namesElements);
+
             NavigatioLoopService loopService = new NavigatioLoopService
-                (namesElements, DisplayPage(namesElements));
+                (namesElements, GetCountStrokeInTitle());
 
             ExecuteSelectedElement(elements[loopService.GetNumberSelectedElement()]);
         }
