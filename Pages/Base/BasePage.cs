@@ -1,25 +1,30 @@
-﻿using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
-
-namespace ConsoleCS_ProjectManagementSystem.Pages.Base
+﻿namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 {
     public abstract class BasePage
     {
         private const string STANDART_TITLE = """
-            Управление:\n
-            стрелки вниз, вверх - выбор элемента меню\n
-            стрелка в лево - вернутся на прошлую страницу\n
-            enter - взаимодействие с элементом меню\n
+            Управление:
+            стрелки вниз, вверх - выбор элемента меню
+            стрелка в лево - вернутся на прошлую страницу
+            enter - взаимодействие с элементом меню
+
             """;
 
-        private int StrokeCount(string text)
+        private int CountStrokeInTitle(string text)
         {
-            return text.Where(x => x == '\n').Count();
+            return text.Where(x => x == '\n').Count() + 1;
         }
 
-        public virtual int DisplayPage(List<IElement> elements, string title = STANDART_TITLE)
+        public virtual int DisplayPage(List<string> elements, string title = STANDART_TITLE)
         {
+            Console.WriteLine(title);
 
-            return StrokeCount(title);
+            foreach (string element in elements)
+            {
+                Console.WriteLine($"{element}");
+            }
+
+            return CountStrokeInTitle(title);
         }
         public abstract void Open();
     }

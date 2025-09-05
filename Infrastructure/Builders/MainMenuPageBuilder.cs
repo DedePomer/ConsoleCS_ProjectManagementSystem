@@ -4,22 +4,20 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Builders
 {
     public class MainMenuPageBuilder
     {
-        private MenuElement _element = new MenuElement();
+        private List<MenuElement> _element = new List<MenuElement>();
         public MainMenuPageBuilder AddElement(int id, string name, Action<object?> action)
         {
-            _element.Id = id;
-            _element.Name = name;
-            _element.Execute += action;
+            _element.Add(new MenuElement()
+            {
+                Id = id,
+                Name = name,
+                Execute = action,
+            });
             return this;
         }
-        public MenuElement Build()
+        public List<MenuElement> Build()
         {
-            return new MenuElement()
-            { 
-                Id = _element.Id,
-                Name = _element.Name,
-                Execute = _element.Execute,          
-            };
+            return _element;
         }
     }
 }

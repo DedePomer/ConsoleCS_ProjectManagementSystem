@@ -11,14 +11,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         public override void Open()
         {
             MainMenuPageBuilder builder = new MainMenuPageBuilder();
-            Elements
-                .Add(builder
+            Elements = builder
                 .AddElement(1, "Создать нового пользователя", (object? obj) => { Environment.Exit(0); })
                 .AddElement(2, "Посмотреть задачи", (object? obj) => { Environment.Exit(0); })
                 .AddElement(3, "Выход", (object? obj) => { Environment.Exit(0); })
-                .Build());
-
-
+                .Build();
+            DisplayPage(Elements.Select(x => x.Name).ToList());
         }
 
     }
