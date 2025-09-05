@@ -1,15 +1,24 @@
-﻿using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Builders;
+using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public class MainMenuPage : BasePage
     {
-        private LinkedList<IElement> Elements = new LinkedList<IElement>();
+        private List<MenuElement> Elements = new List<MenuElement>();
 
         public override void Open()
         {
-            throw new NotImplementedException();
+            MainMenuPageBuilder builder = new MainMenuPageBuilder();
+            Elements
+                .Add(builder
+                .AddElement(1, "Создать нового пользователя", (object? obj) => { Environment.Exit(0); })
+                .AddElement(2, "Посмотреть задачи", (object? obj) => { Environment.Exit(0); })
+                .AddElement(3, "Выход", (object? obj) => { Environment.Exit(0); })
+                .Build());
+
+
         }
 
     }
