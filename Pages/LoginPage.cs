@@ -17,7 +17,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         }
 
         #region override ShowElementsForInputs
-        private void HidePassword(string password)
+        private void HidePassword(string password) /*можно добавить поддержку нажатий стрело вправо и влево*/
         {
             password = string.Empty;
             ConsoleKeyInfo key;
