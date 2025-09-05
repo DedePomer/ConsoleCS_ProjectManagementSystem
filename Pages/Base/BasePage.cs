@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using ConsoleCS_ProjectManagementSystem.Model.DataType;
+﻿using ConsoleCS_ProjectManagementSystem.Model.DataType;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 {
     public abstract class BasePage
     {
         public const bool CURSOR_VISIBLE = false;
+        public const string INPUT_SPLITTER = ": ";
         public const string STANDART_TITLE = """
             Управление:
             стрелки вниз, вверх - выбор элемента меню
@@ -37,7 +36,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
             }
         }
 
-        public virtual void ShowElementsForInputs(Dictionary<string,string> elements, string title = STANDART_TITLE)
+        public virtual void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
             UpdateConsole();
 
@@ -45,8 +44,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 
             foreach (var element in elements)
             {
-                Console.Write(element.Key+ ": ");
-                elements[element.Key] = Console.ReadLine() ?? "";
+                Console.Write(element.Key + INPUT_SPLITTER);
+                elements[element.Key] = Console.ReadLine() ?? string.Empty;
             }
         }
 
