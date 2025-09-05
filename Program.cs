@@ -1,4 +1,5 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,18 +35,19 @@ namespace ConsoleCS_ProjectManagementSystem
 
             var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
             dbInitializer.Initialize();
-            var mainMenu = app.Services.GetRequiredService<MainMenuPage>();
+            var loginPage = app.Services.GetRequiredService<LoginPage>();
 
-            
-            mainMenu.Open();
+
+            loginPage.Open(new DefaultUser());
             app.Run();
         }
 
 
         private static void AddServices(IServiceCollection services)
         {
-            services.AddSingleton<MainMenuPage>();
+            services.AddSingleton<LoginPage>();
             services.AddTransient<DbInitializer>();
+            services.AddSingleton<DefaultUser>();
         }
 
         private static void AddDatabase(IServiceCollection services, IConfiguration configuration)

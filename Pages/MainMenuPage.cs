@@ -7,7 +7,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public class MainMenuPage : BasePage
     {
-        public override void Open()
+        public override void Open(DefaultUser user)
         {
             MainMenuPageBuilder builder = new MainMenuPageBuilder();
             List<MenuElement> elements = builder
@@ -18,7 +18,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             List<string> namesElements = elements.Select(x => x.Name).ToList();
 
-            DisplayPage(namesElements);
+            ShowDisplayElements(namesElements);
 
             NavigatioLoopService loopService = new NavigatioLoopService
                 (namesElements, GetCountStrokeInTitle());

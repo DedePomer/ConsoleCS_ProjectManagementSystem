@@ -1,4 +1,8 @@
-﻿namespace ConsoleCS_ProjectManagementSystem.Pages.Base
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using ConsoleCS_ProjectManagementSystem.Model.DataType;
+
+namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 {
     public abstract class BasePage
     {
@@ -11,12 +15,7 @@
 
             """;
 
-        public int GetCountStrokeInTitle(string title = STANDART_TITLE)
-        {
-            return title.Where(x => x == '\n').Count() + 1;
-        }
-
-        public virtual void DisplayPage(List<string> elements, string title = STANDART_TITLE)
+        public void UpdateConsole()
         {
             if (Console.CursorVisible == true)
             {
@@ -24,6 +23,11 @@
             }
 
             Console.Clear();
+        }
+
+        public virtual void ShowDisplayElements(List<string> elements, string title = STANDART_TITLE)
+        {
+            UpdateConsole();
 
             Console.WriteLine(title);
 
@@ -32,6 +36,24 @@
                 Console.WriteLine($"{element}");
             }
         }
-        public abstract void Open();
+
+        public virtual void ShowElementsForInputs(Dictionary<string,string> elements, string title = STANDART_TITLE)
+        {
+            UpdateConsole();
+
+            Console.WriteLine(title);
+
+            foreach (var element in elements)
+            {
+                Console.WriteLine(element.Key+ ":");
+                elements[element.Key] = Console.ReadLine();
+            }
+        }
+
+        public int GetCountStrokeInTitle(string title = STANDART_TITLE)
+        {
+            return title.Where(x => x == '\n').Count() + 1;
+        }
+        public abstract void Open(DefaultUser user);
     }
 }
