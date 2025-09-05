@@ -6,8 +6,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 {
     public abstract class BasePage
     {
-        private const bool CURSOR_VISIBLE = false;
-        private const string STANDART_TITLE = """
+        public const bool CURSOR_VISIBLE = false;
+        public const string STANDART_TITLE = """
             Управление:
             стрелки вниз, вверх - выбор элемента меню
             стрелка в лево - вернутся на прошлую страницу
@@ -45,8 +45,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 
             foreach (var element in elements)
             {
-                Console.WriteLine(element.Key+ ":");
-                elements[element.Key] = Console.ReadLine();
+                Console.Write(element.Key+ ": ");
+                elements[element.Key] = Console.ReadLine() ?? "";
             }
         }
 
