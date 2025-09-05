@@ -6,17 +6,18 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public class MainMenuPage : BasePage
     {
-        private List<MenuElement> Elements = new List<MenuElement>();
-
         public override void Open()
         {
             MainMenuPageBuilder builder = new MainMenuPageBuilder();
-            Elements = builder
+            List<MenuElement> elements = builder
                 .AddElement(1, "Создать нового пользователя", (object? obj) => { Environment.Exit(0); })
                 .AddElement(2, "Посмотреть задачи", (object? obj) => { Environment.Exit(0); })
                 .AddElement(3, "Выход", (object? obj) => { Environment.Exit(0); })
                 .Build();
-            DisplayPage(Elements.Select(x => x.Name).ToList());
+
+            DisplayPage(elements.Select(x => x.Name).ToList());
+
+
         }
 
     }
