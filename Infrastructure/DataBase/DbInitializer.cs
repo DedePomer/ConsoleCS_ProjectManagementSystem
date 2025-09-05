@@ -52,8 +52,8 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
                  
                  INSERT INTO Roles (id, name, rights)
                  VALUES 
-                 (1,'Manager',7),
-                 (2,'User',0)              
+                 (1,'Manager',15),
+                 (2,'User',8)              
                  
                 """);
             }
