@@ -41,12 +41,5 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             //ExecuteSelectedElement(_elements[]);
         }
 
-        private void ExecuteSelectedElement(MenuElement element)
-        {
-            element.Execute?.Invoke(element);
-        }
-
-
-
     }
 }
