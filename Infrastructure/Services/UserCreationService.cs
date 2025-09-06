@@ -12,7 +12,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
             _repository = repository;
         }
 
-        public List<DefaultRole> GetRoles()
+        public IEnumerable<DefaultRole> GetRoles()
         {
             return _repository.GetRoles();
         }

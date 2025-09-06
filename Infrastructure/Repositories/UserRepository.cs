@@ -37,7 +37,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
 
             var role = connection.QuerySingleOrDefault<DefaultRole>(new CommandDefinition("""
                 
-                SELECT name, rights
+                SELECT id, name, rights
                 FROM Roles
                 WHERE id = (SELECT roleid
                 FROM Users

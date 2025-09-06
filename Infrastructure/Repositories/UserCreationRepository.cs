@@ -15,13 +15,13 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             _connection = connection;
         }
 
-        public List<DefaultRole> GetRoles()
+        public IEnumerable<DefaultRole> GetRoles()
         {
             using var connection = _connection.CreateConnection();
 
-            List<DefaultRole> roles = connection.QuerySingleOrDefault<List<DefaultRole>>("""
+            IEnumerable<DefaultRole> roles = connection.Query<DefaultRole>("""
 
-                SELECT name, rights
+                SELECT id, name, rights
                 FROM Roles
 
                 """) ?? throw new ArgumentNullException(nameof(roles));
@@ -38,7 +38,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 INSERT INTO Users (name,password,roleid)
                 VALUES (@Name, @Pasword, @Role);
 
-                """, new { Name = user.Name, Pasword = HashService.GetHash(user.Password), Role = user.Role}));
+                """, new { Name = user.Name, Pasword = HashService.GetHash(user.Password), Role = user.Role.Id}));
         }
 
         public bool UserExist(string login)

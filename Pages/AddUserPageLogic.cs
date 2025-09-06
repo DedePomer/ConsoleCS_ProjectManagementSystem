@@ -4,7 +4,8 @@
     {
         public override void FillDictionary()
         {
-            throw new NotImplementedException();
+            _elements.Add("Логин","");
+            _elements.Add("Пароль", "");
         }
     }
 }

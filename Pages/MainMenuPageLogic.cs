@@ -43,7 +43,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void OpenAddUser(object? obj)
         {
-            Environment.Exit(0);
+            _navigation.Open(new AddUserPage(_user, _connectionFactory, _navigation));
         }
         #endregion
 
