@@ -26,21 +26,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
-            string title = $"Добро пожаловать {_user.Name}!\n";
+            
 
-            UserPermisionService permisionService = new UserPermisionService(_user.Role.Rights);
-
-            List<string> namesElements = _elements
-                .Where(x => _user.UserHasRights(x.Value))
-                .Select(x => x.Key.Name)
-                .ToList();
-
-            ShowDisplayElements(namesElements, title);
-
-            NavigationLoopService loopService = new NavigationLoopService
-                (namesElements, GetCountStrokeInTitle());
-
-            loopService.GetNumberSelectedElement();
+            
             //ExecuteSelectedElement(_elements[]);
         }
 

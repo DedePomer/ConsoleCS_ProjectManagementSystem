@@ -1,4 +1,5 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
@@ -46,6 +47,28 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         }
         #endregion
 
-        
+
+        private (ConsoleKey,int) GetPressedInfo()
+        {
+            string title = $"Добро пожаловать {_user.Name}!\n";
+
+            ConsoleKey pressedKey;
+            int numberOfSelectedElement;
+
+            List<string> namesElements = _elements
+                .Where(x => _user.UserHasRights(x.Value))
+                .Select(x => x.Key.Name)
+                .ToList();
+
+            ShowDisplayElements(namesElements, title);
+
+            NavigationLoopService loopService = new NavigationLoopService
+                (namesElements, GetCountStrokeInTitle());
+
+            numberOfSelectedElement = loopService.GetNumberSelectedElement();
+            pressedKey = loopService.PressedKey;
+
+            return (pressedKey, numberOfSelectedElement);
+        }
     }
 }
