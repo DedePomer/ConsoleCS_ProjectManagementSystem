@@ -28,7 +28,7 @@
         }
 
 
-        private ConsoleKey GetPressedKey(ref int topCursorPosition, int downCursorPosition)
+        private ConsoleKey GetPressedKey(ref int topCursorPosition, int downCursorPosition, bool ReadLeftArrow)
         {
             ConsoleKey key;
 
@@ -50,7 +50,7 @@
                         topCursorPosition++;
                     }
                 }
-                else if (key == ConsoleKey.LeftArrow)
+                else if (key == ConsoleKey.LeftArrow && ReadLeftArrow == true)
                 {
                     return key;
                 }
@@ -59,7 +59,7 @@
             return key;
         }
 
-        public int GetNumberSelectedElement()
+        public int GetNumberSelectedElement(bool ReadLeftArrow)
         {
             int topCursorPosition = _cursorPosition;
             int downCursorPosition = _elemments.Count() + _cursorPosition;
@@ -68,7 +68,7 @@
 
             HighlightElement(topCursorPosition, topCursorPosition);
 
-            PressedKey = GetPressedKey(ref topCursorPosition, downCursorPosition);
+            PressedKey = GetPressedKey(ref topCursorPosition, downCursorPosition, ReadLeftArrow);
 
             return topCursorPosition - _cursorPosition;
         }

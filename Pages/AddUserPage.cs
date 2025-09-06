@@ -39,7 +39,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             ShowDisplayElements(RolesNames, "Выберите роль нового пользователя\n");
             NavigationLoopService loopService = new NavigationLoopService(RolesNames, GetCountStrokeInTitle());
-            int roleId = loopService.GetNumberSelectedElement();
+            int roleId = loopService.GetNumberSelectedElement(false);
 
             ShowElementsForInputs(_elements, "Введите логин и пароль нового пользователя\n");
             loopService = new NavigationLoopService(RolesNames, GetCountStrokeInTitle());

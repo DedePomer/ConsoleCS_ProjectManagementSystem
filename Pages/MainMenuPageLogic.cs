@@ -65,7 +65,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             NavigationLoopService loopService = new NavigationLoopService
                 (namesElements, GetCountStrokeInTitle());
 
-            numberOfSelectedElement = loopService.GetNumberSelectedElement();
+            numberOfSelectedElement = loopService.GetNumberSelectedElement(true);
             pressedKey = loopService.PressedKey;
 
             return (pressedKey, numberOfSelectedElement);

@@ -22,7 +22,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
                 
                 CREATE TABLE If NOT EXISTS Roles
                 (
-                    id int PRIMARY KEY,
+                    id INTEGER PRIMARY KEY,
                     name text,
                     rights int
                 );                
@@ -33,7 +33,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
                 
                 CREATE TABLE if not EXISTS Users
                 (
-                	id int PRIMARY KEY,
+                	id INTEGER PRIMARY KEY,
                   	name text,
                   	password blob,
                 	roleId int,
