@@ -11,7 +11,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private readonly DefaultUser _user;
         private readonly IDbConnectionFactory _connectionFactory;
 
-        private Dictionary<MenuElement, RightsEnum> _elements;
+        private Dictionary<MenuElement, RightsEnum> _elements = new Dictionary<MenuElement, RightsEnum>();
 
         public MainMenuPage(DefaultUser user, IDbConnectionFactory connectionFactory)
         {
