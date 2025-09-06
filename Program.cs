@@ -36,9 +36,8 @@ namespace ConsoleCS_ProjectManagementSystem
             var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
             dbInitializer.Initialize();
             var loginPage = app.Services.GetRequiredService<LoginPage>();
+            loginPage.Open();
 
-
-            loginPage.Open(new DefaultUser());
             app.Run();
         }
 

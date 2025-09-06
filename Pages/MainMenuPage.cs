@@ -1,4 +1,5 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Builders;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
@@ -7,7 +8,16 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public class MainMenuPage : BasePage
     {
-        public override void Open(DefaultUser user)
+        private readonly DefaultUser _user;
+        private readonly IDbConnectionFactory _connectionFactory;
+
+        public MainMenuPage(DefaultUser user, IDbConnectionFactory connectionFactory) 
+        {
+            _user = user;
+            _connectionFactory = connectionFactory;
+        }
+
+        public override void Open()
         {
             MainMenuPageBuilder builder = new MainMenuPageBuilder();
             List<MenuElement> elements = builder

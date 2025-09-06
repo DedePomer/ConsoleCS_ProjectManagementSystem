@@ -1,4 +1,5 @@
-﻿using ConsoleCS_ProjectManagementSystem.Model.DataType;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+using ConsoleCS_ProjectManagementSystem.Model.DataType;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 {
@@ -53,6 +54,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
         {
             return title.Where(x => x == '\n').Count() + 1;
         }
-        public abstract void Open(DefaultUser user);
+
+        public abstract void Open();
     }
 }

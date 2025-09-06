@@ -1,13 +1,29 @@
-﻿using ConsoleCS_ProjectManagementSystem.Model.DataType;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
+using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public class LoginPage : BasePage
     {
+        private readonly DefaultUser _user;
+        private readonly IDbConnectionFactory _connectionFactory;
 
-        public override void Open(DefaultUser user)
+
+
+        public LoginPage(DefaultUser user, IDbConnectionFactory connectionFactory)
         {
+            _user = user;
+            _connectionFactory = connectionFactory;
+        }
+
+        public override void Open()
+        {
+            UserDataRepository userDataRepository = new UserDataRepository(_connectionFactory);
+            bool a = userDataRepository.UserExist("admin", "admin");
+            DefaultRole b = userDataRepository.GetUserRole("admin", "a");
+
             Dictionary<string, string> LogInData = new Dictionary<string, string>()
             {
                 ["Логин"] = "",
@@ -62,7 +78,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                     elements[element.Key] = Console.ReadLine() ?? string.Empty;
                 }
             }
-        }
+        }     
         #endregion
 
 

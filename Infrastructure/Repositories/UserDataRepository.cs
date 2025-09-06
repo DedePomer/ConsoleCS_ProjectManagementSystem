@@ -32,11 +32,9 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             return isUserExist;
         }
 
-        public DefaultRole GetUserRole(string login, string password)
+        public DefaultRole GetUserRole(string login)
         {
             using var connection = _connection.CreateConnection();
-
-            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
 
             var role = connection.QuerySingleOrDefault<DefaultRole>(new CommandDefinition("""
                 
@@ -44,11 +42,11 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 FROM Roles
                 WHERE id = (SELECT roleid
                 FROM Users
-                WHERE name = 'admin')
+                WHERE name = @Login)
                 
-                """, new { Login = login, Password = SHA256.HashData(passwordBytes) }));
+                """, new { Login = login}));
 
-            return role;
+            return role ?? throw new ArgumentNullException(nameof(role));
         }
     }
 
