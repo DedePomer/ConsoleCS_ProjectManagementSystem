@@ -11,6 +11,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
 
+        private Dictionary<string, string> _elements = new Dictionary<string, string>();
 
         public AddUserPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation) 
         {

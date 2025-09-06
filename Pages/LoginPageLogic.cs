@@ -13,7 +13,7 @@
             do
             {
                 ShowElementsForInputs(_elements);
-                if ((_userDataService.UserExist(_elements["Логин"], _elements["Пароль"])))
+                if ((_userDataService.UserAuthentication(_elements["Логин"], _elements["Пароль"])))
                     break;
                 else
                     ShowException();
