@@ -1,5 +1,6 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
 
@@ -20,16 +21,18 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
-            UserDataRepository userDataRepository = new UserDataRepository(_connectionFactory);
-            bool a = userDataRepository.UserExist("admin", "admin");
-            DefaultRole b = userDataRepository.GetUserRole("admin", "a");
+            UserDataService userDataService = new UserDataService(new UserDataRepository(_connectionFactory));
 
             Dictionary<string, string> LogInData = new Dictionary<string, string>()
             {
                 ["Логин"] = "",
                 ["Пароль"] = ""
             };
-            ShowElementsForInputs(LogInData);
+            do{
+                ShowElementsForInputs(LogInData);
+            } while (userDataService.UserExist(LogInData["Логин"], LogInData["Пароль"]));
+            
+            userDataService.GetUser(LogInData["Логин"], LogInData["Пароль"]);
         }
 
         #region override ShowElementsForInputs
@@ -78,7 +81,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                     elements[element.Key] = Console.ReadLine() ?? string.Empty;
                 }
             }
-        }     
+        }
         #endregion
 
 

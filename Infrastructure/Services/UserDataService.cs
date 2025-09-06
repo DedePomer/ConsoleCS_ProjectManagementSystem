@@ -1,4 +1,6 @@
-﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
+﻿using System.Security.Cryptography;
+using System.Text;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
@@ -16,13 +18,16 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
             return _userDataRepository.UserExist(login, password);
         }
 
-        //public DefaultUser GetUser(string login, string password)
-        //{
-        //    DefaultUser user = new DefaultUser();
-        //    if (UserExist(login, password)) 
-        //    {
-        //        user.
-        //    }       
-        //}
+        public DefaultUser GetUser(string login, string password)
+        {
+            DefaultUser user = new DefaultUser();
+
+            user.Name = login;
+            user.Password = string.Empty;
+            user.role = _userDataRepository.GetUserRole(login);
+
+            return user;
+
+        }
     }
 }
