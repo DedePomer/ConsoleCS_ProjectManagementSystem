@@ -11,19 +11,19 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             _elements = new Dictionary<MenuElement, RightsEnum>()
             {
                 [ new MenuElement(){
-                    Id = 1,
+                    Id = 0,
                     Name = "Добавить пользователя",
                     Execute = OpenAddUser
                 }] = RightsEnum.CreateUser,
                 [new MenuElement()
                 {
-                    Id = 2,
+                    Id = 1,
                     Name = "Посмотреть задачи",
                     Execute = OpenTaskViewer
                 }] = RightsEnum.None,
                 [new MenuElement()
                 {
-                    Id = 3,
+                    Id = 2,
                     Name = "Выход",
                     Execute = OpenExit
                 }] = RightsEnum.None,
@@ -48,7 +48,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         #endregion
 
 
-        private (ConsoleKey,int) GetPressedInfo()
+        private (ConsoleKey pressedKey, int selectedItem) GetPressedInfo()
         {
             string title = $"Добро пожаловать {_user.Name}!\n";
 

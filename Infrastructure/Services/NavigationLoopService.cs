@@ -28,7 +28,7 @@
         }
 
 
-        private ConsoleKey GetPressedKey(int topCursorPosition, int downCursorPosition)
+        private ConsoleKey GetPressedKey(ref int topCursorPosition, int downCursorPosition)
         {
             ConsoleKey key;
 
@@ -68,7 +68,7 @@
 
             HighlightElement(topCursorPosition, topCursorPosition);
 
-            PressedKey = GetPressedKey(topCursorPosition, downCursorPosition);
+            PressedKey = GetPressedKey(ref topCursorPosition, downCursorPosition);
 
             return topCursorPosition - _cursorPosition;
         }

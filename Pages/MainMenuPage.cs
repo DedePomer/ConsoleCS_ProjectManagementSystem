@@ -1,7 +1,6 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
 
@@ -28,13 +27,18 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
-            if (GetPressedInfo().Item1 == ConsoleKey.LeftArrow)
+            var info = GetPressedInfo();
+            if (info.pressedKey == ConsoleKey.LeftArrow)
             {
                 _navigation.Back();
             }
-            else 
+            else
             {
-                
+                _elements.Where(x => x.Key.Id == info.selectedItem)
+                    .FirstOrDefault()
+                    .Key
+                    .Execute
+                    ?.Invoke(default);
             }
         }
 
