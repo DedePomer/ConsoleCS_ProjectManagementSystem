@@ -7,43 +7,36 @@ using ConsoleCS_ProjectManagementSystem.Pages.Base;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
-    public class LoginPage : BasePage
+    public partial class LoginPage : BasePage
     {
         private DefaultUser _user;
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
+
+        private readonly UserDataService _userDataService;
+
+        private Dictionary<string, string> _elements = new Dictionary<string, string>();
+
 
         public LoginPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation)
         {
             _user = user;
             _connectionFactory = connectionFactory;
             _navigation = navigation;
+            _userDataService = new UserDataService(new UserDataRepository(_connectionFactory));
+
+            FillDictionary();
         }
 
         public override void Open()
         {
-            UserDataService userDataService = new UserDataService(new UserDataRepository(_connectionFactory));
 
-            Dictionary<string, string> LogInData = new Dictionary<string, string>()
-            {
-                ["Логин"] = "",
-                ["Пароль"] = ""
-            };
-            do
-            {
-                ShowElementsForInputs(LogInData);
-                if ((userDataService.UserExist(LogInData["Логин"], LogInData["Пароль"])))
-                    break;
-                else
-                    ShowException();
-            } while (true);
+            InputChek();
 
-            _user = userDataService.GetUser(LogInData["Логин"], LogInData["Пароль"]);
+            _user = _userDataService.GetUser(_elements["Логин"], _elements["Пароль"]);
 
-            _navigation.Open(new MainMenuPage(_user, _connectionFactory, _navigation));           
+            _navigation.Open(new MainMenuPage(_user, _connectionFactory, _navigation));
         }
-
-
 
         #region override ShowElementsForInputs
         private void HidePassword(ref string password) /*можно добавить поддержку нажатий стрело вправо и влево*/
@@ -93,11 +86,5 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             }
         }
         #endregion
-
-
-
-
-
-
     }
 }

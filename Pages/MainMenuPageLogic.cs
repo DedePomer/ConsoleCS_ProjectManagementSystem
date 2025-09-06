@@ -5,7 +5,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public partial class MainMenuPage
     {
-        private void FillDictionary()
+        public override void FillDictionary()
         {
             _elements = new Dictionary<MenuElement, RightsEnum>()
             {
