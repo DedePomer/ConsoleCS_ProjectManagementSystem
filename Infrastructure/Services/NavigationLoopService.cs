@@ -2,11 +2,11 @@
 {
     public class NavigationLoopService
     {
-        private ConsoleColor _defaultColor = Console.ForegroundColor;
-        private ConsoleColor _highlightColor = ConsoleColor.Green;
-
         private readonly List<string> _elemments;
         private readonly int _cursorPosition;
+
+        private ConsoleColor _defaultColor = Console.ForegroundColor;
+        private ConsoleColor _highlightColor = ConsoleColor.Green;
 
         public ConsoleKey PressedKey { get; private set; }
 

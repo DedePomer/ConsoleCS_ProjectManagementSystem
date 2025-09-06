@@ -21,15 +21,21 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             _connectionFactory = connectionFactory;
             _navigation = navigation;
 
+            _navigation.Add(this);
+
             FillDictionary();
         }
 
         public override void Open()
         {
-            
-
-            
-            //ExecuteSelectedElement(_elements[]);
+            if (GetPressedInfo().Item1 == ConsoleKey.LeftArrow)
+            {
+                _navigation.Back();
+            }
+            else 
+            {
+                
+            }
         }
 
     }

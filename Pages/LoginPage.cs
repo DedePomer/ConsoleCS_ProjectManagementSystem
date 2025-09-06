@@ -25,6 +25,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             _navigation = navigation;
             _userDataService = new UserDataService(new UserDataRepository(_connectionFactory));
 
+            _navigation.Add(this);
+
             FillDictionary();
         }
 
@@ -69,6 +71,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
+            Console.Clear();
+
             Console.WriteLine(title);
 
             foreach (var element in elements)
