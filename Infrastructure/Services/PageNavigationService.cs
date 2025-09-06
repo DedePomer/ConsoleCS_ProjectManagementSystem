@@ -5,14 +5,17 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
     public class PageNavigationService : IPageNavigation
     {
+        private LinkedList<BasePage> _pageList = new LinkedList<BasePage>();
         public void Back()
         {
-            throw new NotImplementedException();
+            _pageList.RemoveLast();
+            _pageList.Last().Open();
         }
 
         public void Open(BasePage page)
         {
-            throw new NotImplementedException();
+            _pageList.AddLast(page);
+            page.Open();
         }
     }
 }
