@@ -36,7 +36,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             connection.Execute( new CommandDefinition("""
 
                 INSERT INTO Users (name,password,roleid)
-                VALUES (@Name, 'john.doe@example.com', 'securepassword');
+                VALUES (@Name, @Pasword, @Role);
 
                 """, new { Name = user.Name, Pasword = HashService.GetHash(user.Password), Role = user.Role}));
         }

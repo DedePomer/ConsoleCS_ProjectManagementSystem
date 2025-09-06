@@ -1,4 +1,6 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
+using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using Serilog;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
@@ -8,6 +10,21 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         public UserCreationService(UserCreationRepository repository)
         {
             _repository = repository;
+        }
+
+        public List<DefaultRole> GetRoles()
+        {
+            return _repository.GetRoles();
+        }
+
+        public bool UserExist(string login)
+        {
+            return _repository.UserExist(login);
+        }
+
+        public void CreateUser(DefaultUser user)
+        {
+            _repository.CreateUser(user);
         }
     }
 }
