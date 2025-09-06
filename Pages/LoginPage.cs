@@ -1,4 +1,5 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
@@ -10,17 +11,17 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
     {
         private DefaultUser _user;
         private readonly IDbConnectionFactory _connectionFactory;
+        private readonly IPageNavigation _navigation;
 
-        public LoginPage(DefaultUser user, IDbConnectionFactory connectionFactory)
+        public LoginPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation)
         {
             _user = user;
             _connectionFactory = connectionFactory;
+            _navigation = navigation;
         }
 
         public override void Open()
         {
-            Console.CursorVisible = true;
-
             UserDataService userDataService = new UserDataService(new UserDataRepository(_connectionFactory));
 
             Dictionary<string, string> LogInData = new Dictionary<string, string>()
@@ -28,9 +29,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 ["Логин"] = "",
                 ["Пароль"] = ""
             };
-            do{
+            do
+            {
                 ShowElementsForInputs(LogInData);
-                if ((userDataService.UserExist(LogInData["Логин"], LogInData["Пароль"])))                   
+                if ((userDataService.UserExist(LogInData["Логин"], LogInData["Пароль"])))
                     break;
                 else
                     ShowException();
@@ -38,11 +40,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             _user = userDataService.GetUser(LogInData["Логин"], LogInData["Пароль"]);
 
-            MainMenuPage mainMenu = new MainMenuPage(_user, _connectionFactory);
-            mainMenu.Open();
-
-            Console.CursorVisible = false;
+            _navigation.Open(new MainMenuPage(_user, _connectionFactory, _navigation));           
         }
+
+
 
         #region override ShowElementsForInputs
         private void HidePassword(ref string password) /*можно добавить поддержку нажатий стрело вправо и влево*/

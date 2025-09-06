@@ -1,4 +1,6 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +16,8 @@ namespace ConsoleCS_ProjectManagementSystem
 
         public static void Main(string[] args)
         {
+            Console.CursorVisible = false;
+
 
             var builder = Host.CreateApplicationBuilder(args);
 
@@ -47,6 +51,7 @@ namespace ConsoleCS_ProjectManagementSystem
             services.AddSingleton<LoginPage>();
             services.AddTransient<DbInitializer>();
             services.AddSingleton<DefaultUser>();
+            services.AddSingleton<IPageNavigation, PageNavigationService>();
         }
 
         private static void AddDatabase(IServiceCollection services, IConfiguration configuration)
