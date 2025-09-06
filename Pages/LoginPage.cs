@@ -32,7 +32,6 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
-
             InputChek();
 
             _user = _userDataService.GetUser(_elements["Логин"], _elements["Пароль"]);
