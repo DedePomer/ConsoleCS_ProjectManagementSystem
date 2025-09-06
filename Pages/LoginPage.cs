@@ -8,10 +8,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public class LoginPage : BasePage
     {
-        private readonly DefaultUser _user;
+        private DefaultUser _user;
         private readonly IDbConnectionFactory _connectionFactory;
-
-
 
         public LoginPage(DefaultUser user, IDbConnectionFactory connectionFactory)
         {
@@ -30,9 +28,16 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             };
             do{
                 ShowElementsForInputs(LogInData);
-            } while (userDataService.UserExist(LogInData["Логин"], LogInData["Пароль"]));
-            
-            userDataService.GetUser(LogInData["Логин"], LogInData["Пароль"]);
+                if (userDataService.UserExist(LogInData["Логин"], LogInData["Пароль"])!)
+                    ShowException();
+                else 
+                    break;
+            } while (true);
+
+            _user = userDataService.GetUser(LogInData["Логин"], LogInData["Пароль"]);
+
+            MainMenuPage mainMenu = new MainMenuPage(_user, _connectionFactory);
+            mainMenu.Open();
         }
 
         #region override ShowElementsForInputs

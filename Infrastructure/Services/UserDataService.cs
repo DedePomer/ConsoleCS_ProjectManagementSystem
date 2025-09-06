@@ -24,7 +24,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 
             user.Name = login;
             user.Password = string.Empty;
-            user.role = _userDataRepository.GetUserRole(login);
+            user.Role = _userDataRepository.GetUserRole(login);
 
             return user;
 

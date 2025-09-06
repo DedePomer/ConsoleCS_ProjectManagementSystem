@@ -5,6 +5,6 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
     public class DefaultRole
     {
         public string Name { get; set; }
-        public RulesEnum Rights { get; set; }
+        public RightsEnum Rights { get; set; }
     }
 }

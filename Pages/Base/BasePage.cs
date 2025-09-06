@@ -1,10 +1,10 @@
-﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
-using ConsoleCS_ProjectManagementSystem.Model.DataType;
-
-namespace ConsoleCS_ProjectManagementSystem.Pages.Base
+﻿namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 {
     public abstract class BasePage
     {
+        public const ConsoleColor EXCEPTION_COLOR = ConsoleColor.Red;
+        public const ConsoleColor DEFAULT_COLOR = ConsoleColor.White;
+        public const string EXCEPTION_TEXT = "Ошибка";
         public const bool CURSOR_VISIBLE = false;
         public const string INPUT_SPLITTER = ": ";
         public const string STANDART_TITLE = """
@@ -48,6 +48,17 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
                 Console.Write(element.Key + INPUT_SPLITTER);
                 elements[element.Key] = Console.ReadLine() ?? string.Empty;
             }
+        }
+
+        public virtual void ShowException(string? text = EXCEPTION_TEXT)
+        {
+            UpdateConsole();
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(text);
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Task.Delay(5000);
         }
 
         public int GetCountStrokeInTitle(string title = STANDART_TITLE)
