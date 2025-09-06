@@ -55,9 +55,8 @@
             Console.WriteLine(text);
             Console.ForegroundColor = DEFAULT_COLOR;
 
-            Console.ReadKey();
-            Thread.Sleep(EXCEPTION_DELAY);
-
+            ConsoleKey key;
+            while ((key = Console.ReadKey(true).Key) != ConsoleKey.Enter) {}
             Console.Clear();
         }
 
