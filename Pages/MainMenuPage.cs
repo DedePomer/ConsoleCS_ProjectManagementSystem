@@ -20,7 +20,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             ShowDisplayElements(namesElements);
 
-            NavigatioLoopService loopService = new NavigatioLoopService
+            NavigationLoopService loopService = new NavigationLoopService
                 (namesElements, GetCountStrokeInTitle());
 
             ExecuteSelectedElement(elements[loopService.GetNumberSelectedElement()]);

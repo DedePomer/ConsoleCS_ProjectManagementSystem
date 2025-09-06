@@ -1,7 +1,7 @@
 ﻿namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Enums
 {
     [Flags]
-    public enum RolesEnum
+    public enum RulesEnum
     {
         None = 0,
         CreateUser = 1,

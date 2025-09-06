@@ -1,6 +1,6 @@
 ﻿namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
-    public class NavigatioLoopService
+    public class NavigationLoopService
     {
         private ConsoleColor _defaultColor = Console.ForegroundColor;
         private ConsoleColor _highlightColor = ConsoleColor.Green;
@@ -10,7 +10,7 @@
 
         public ConsoleKey PressedKey { get; private set; }
 
-        public NavigatioLoopService(List<string> elemments, int cursorPosition)
+        public NavigationLoopService(List<string> elemments, int cursorPosition)
         {
             _elemments = elemments;
             _cursorPosition = cursorPosition;
