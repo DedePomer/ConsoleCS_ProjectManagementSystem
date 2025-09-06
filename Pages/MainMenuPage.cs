@@ -31,7 +31,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             UserPermisionService permisionService = new UserPermisionService(_user.Role.Rights);
 
             List<string> namesElements = _elements
-                .Where(x => permisionService.UserHasPermision(x.Value))
+                .Where(x => _user.UserHasRights(x.Value))
                 .Select(x => x.Key.Name)
                 .ToList();
 
