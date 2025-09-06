@@ -52,13 +52,15 @@
 
         public virtual void ShowException(string? text = EXCEPTION_TEXT)
         {
-            UpdateConsole();
+            Console.Clear();
 
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = EXCEPTION_COLOR;
             Console.WriteLine(text);
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = DEFAULT_COLOR;
 
-            Task.Delay(5000);
+            Thread.Sleep(5000);
+
+            Console.Clear();
         }
 
         public int GetCountStrokeInTitle(string title = STANDART_TITLE)

@@ -28,10 +28,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             };
             do{
                 ShowElementsForInputs(LogInData);
-                if (userDataService.UserExist(LogInData["Логин"], LogInData["Пароль"])!)
-                    ShowException();
-                else 
+                if ((userDataService.UserExist(LogInData["Логин"], LogInData["Пароль"])))                   
                     break;
+                else
+                    ShowException();
             } while (true);
 
             _user = userDataService.GetUser(LogInData["Логин"], LogInData["Пароль"]);
@@ -41,7 +41,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         }
 
         #region override ShowElementsForInputs
-        private void HidePassword(string password) /*можно добавить поддержку нажатий стрело вправо и влево*/
+        private void HidePassword(ref string password) /*можно добавить поддержку нажатий стрело вправо и влево*/
         {
             password = string.Empty;
             ConsoleKeyInfo key;
@@ -65,7 +65,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private string GetPassword()
         {
             string password = string.Empty;
-            HidePassword(password);
+            HidePassword(ref password);
             return password;
         }
 
