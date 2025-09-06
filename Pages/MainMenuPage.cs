@@ -1,5 +1,4 @@
-﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Builders;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
@@ -14,7 +13,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private Dictionary<MenuElement, RightsEnum> _elements;
 
-        public MainMenuPage(DefaultUser user, IDbConnectionFactory connectionFactory) 
+        public MainMenuPage(DefaultUser user, IDbConnectionFactory connectionFactory)
         {
             _user = user;
             _connectionFactory = connectionFactory;
@@ -24,21 +23,20 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
-            //MainMenuPageBuilder builder = new MainMenuPageBuilder();
-            //List<MenuElement> elements = builder
-            //    .AddElement(1, "Создать нового пользователя", (object? obj) => { })
-            //    .AddElement(2, "Посмотреть задачи", (object? obj) => { })
-            //    .AddElement(3, "Выход", (object? obj) => { Environment.Exit(0); })
-            //    .Build();
+            PermisionService permisionService = new PermisionService(_user.Role.Rights);
 
-            //List<string> namesElements = elements.Select(x => x.Name).ToList();
+            List<string> namesElements = _elements
+                .Where(x => permisionService.UserHasPermision(x.Value))
+                .Select(x => x.Key.Name)
+                .ToList();
 
-            //ShowDisplayElements(namesElements);
+            ShowDisplayElements(namesElements, $"Добро пожаловать {_user.Name}!");
 
-            //NavigationLoopService loopService = new NavigationLoopService
-            //    (namesElements, GetCountStrokeInTitle());
+            NavigationLoopService loopService = new NavigationLoopService
+                (namesElements, GetCountStrokeInTitle());
 
-            //ExecuteSelectedElement(elements[loopService.GetNumberSelectedElement()]);
+            loopService.GetNumberSelectedElement();
+            //ExecuteSelectedElement(_elements[]);
         }
 
         private void ExecuteSelectedElement(MenuElement element)
