@@ -19,6 +19,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
+            Console.CursorVisible = true;
+
             UserDataService userDataService = new UserDataService(new UserDataRepository(_connectionFactory));
 
             Dictionary<string, string> LogInData = new Dictionary<string, string>()
@@ -38,6 +40,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             MainMenuPage mainMenu = new MainMenuPage(_user, _connectionFactory);
             mainMenu.Open();
+
+            Console.CursorVisible = false;
         }
 
         #region override ShowElementsForInputs

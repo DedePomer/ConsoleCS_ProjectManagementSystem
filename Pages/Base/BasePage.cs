@@ -4,10 +4,10 @@
     {
         private string _userTitle = string.Empty;
 
+        public const int EXCEPTION_DELAY = 2500;
         public const ConsoleColor EXCEPTION_COLOR = ConsoleColor.Red;
         public const ConsoleColor DEFAULT_COLOR = ConsoleColor.White;
         public const string EXCEPTION_TEXT = "Ошибка";
-        public const bool CURSOR_VISIBLE = false;
         public const string INPUT_SPLITTER = ": ";
         public const string STANDART_TITLE = """
             Управление:
@@ -17,19 +17,10 @@
 
             """;
 
-        public void UpdateConsole()
-        {
-            if (Console.CursorVisible == true)
-            {
-                Console.CursorVisible = CURSOR_VISIBLE;
-            }
-
-            Console.Clear();
-        }
 
         public virtual void ShowDisplayElements(List<string> elements, string title = STANDART_TITLE)
         {
-            UpdateConsole();
+            Console.Clear();
 
             _userTitle = title;
 
@@ -43,7 +34,7 @@
 
         public virtual void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
-            UpdateConsole();
+            Console.Clear();
 
             _userTitle = title;
 
@@ -64,7 +55,7 @@
             Console.WriteLine(text);
             Console.ForegroundColor = DEFAULT_COLOR;
 
-            Thread.Sleep(5000);
+            Thread.Sleep(EXCEPTION_DELAY);
 
             Console.Clear();
         }
