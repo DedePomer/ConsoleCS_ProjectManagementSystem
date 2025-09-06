@@ -2,10 +2,10 @@
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
-    public class PermisionService
+    public class UserPermisionService
     {
         private readonly RightsEnum _permision;
-        public PermisionService(RightsEnum permision)
+        public UserPermisionService(RightsEnum permision)
         {
             _permision = permision;
         }

@@ -25,7 +25,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         {
             string title = $"Добро пожаловать {_user.Name}!\n";
 
-            PermisionService permisionService = new PermisionService(_user.Role.Rights);
+            UserPermisionService permisionService = new UserPermisionService(_user.Role.Rights);
 
             List<string> namesElements = _elements
                 .Where(x => permisionService.UserHasPermision(x.Value))
