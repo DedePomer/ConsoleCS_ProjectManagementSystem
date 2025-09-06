@@ -2,6 +2,8 @@
 {
     public abstract class BasePage
     {
+        private string _userTitle = string.Empty;
+
         public const ConsoleColor EXCEPTION_COLOR = ConsoleColor.Red;
         public const ConsoleColor DEFAULT_COLOR = ConsoleColor.White;
         public const string EXCEPTION_TEXT = "Ошибка";
@@ -29,6 +31,8 @@
         {
             UpdateConsole();
 
+            _userTitle = title;
+
             Console.WriteLine(title);
 
             foreach (string element in elements)
@@ -40,6 +44,8 @@
         public virtual void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
             UpdateConsole();
+
+            _userTitle = title;
 
             Console.WriteLine(title);
 
@@ -63,9 +69,9 @@
             Console.Clear();
         }
 
-        public int GetCountStrokeInTitle(string title = STANDART_TITLE)
+        public int GetCountStrokeInTitle()
         {
-            return title.Where(x => x == '\n').Count() + 1;
+            return _userTitle.Where(x => x == '\n').Count() + 1;
         }
 
         public abstract void Open();

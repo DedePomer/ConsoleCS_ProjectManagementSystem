@@ -23,6 +23,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
+            string title = $"Добро пожаловать {_user.Name}!\n";
+
             PermisionService permisionService = new PermisionService(_user.Role.Rights);
 
             List<string> namesElements = _elements
@@ -30,7 +32,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 .Select(x => x.Key.Name)
                 .ToList();
 
-            ShowDisplayElements(namesElements, $"Добро пожаловать {_user.Name}!");
+            ShowDisplayElements(namesElements, title);
 
             NavigationLoopService loopService = new NavigationLoopService
                 (namesElements, GetCountStrokeInTitle());
