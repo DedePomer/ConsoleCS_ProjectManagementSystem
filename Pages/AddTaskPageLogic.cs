@@ -15,6 +15,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         {
             while (true) 
             {
+
+
                 ShowElementsForInputs(_elements, "Заполните поля\n");
 
                 DefaultTask newTask = new DefaultTask();

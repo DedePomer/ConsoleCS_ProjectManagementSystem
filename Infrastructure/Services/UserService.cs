@@ -29,6 +29,11 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 
         }
 
+        public IEnumerable<DefaultUser> GetUsers()
+        { 
+            return _repository.GetUsers();
+        }
+
         public void CreateUser(DefaultUser user)
         {
             _repository.CreateUser(user);

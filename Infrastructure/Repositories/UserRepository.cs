@@ -61,6 +61,24 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             return id;
         }
 
+        public IEnumerable<DefaultUser> GetUsers()
+        {
+            using var connection = _connection.CreateConnection();
+
+            IEnumerable<DefaultUser> users = connection.Query<DefaultUser>("""
+
+                SELECT id, name, password
+                FROM Users
+
+                """) ?? throw new ArgumentNullException(nameof(users));
+
+            foreach (var user in users) 
+            {
+                user.Role = GetUserRole(user.Name);
+            }
+            return users;
+        }
+
         public void CreateUser(DefaultUser user)
         {
             using var connection = _connection.CreateConnection();
@@ -72,6 +90,8 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
 
                 """, new { Name = user.Name, Pasword = HashService.GetHash(user.Password), Role = user.Role.Id }));
         }
+
+
     }
 
 
