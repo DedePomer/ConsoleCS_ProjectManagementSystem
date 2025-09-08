@@ -48,7 +48,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         #endregion
 
 
-        private (ConsoleKey pressedKey, int selectedItem) GetSelectedElement()
+        private (ConsoleKey pressedKey, int selectedItem) GetNumberSelectedElement()
         {
             string title = $"Добро пожаловать {_user.Name}!\n";
 

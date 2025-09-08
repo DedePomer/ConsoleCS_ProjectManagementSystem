@@ -1,21 +1,20 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
-using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
-    public partial class TaskViewPage : BasePage
+    public partial class AddTaskPage : BasePage
     {
+
         private readonly DefaultUser _user;
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
 
-        private Dictionary<IElement, RightsEnum> _elements = new Dictionary<IElement, RightsEnum>();
+        private Dictionary<string, string> _elements = new Dictionary<string, string>();
 
-        public TaskViewPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation)
+        public AddTaskPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation)
         {
             _user = user;
             _connectionFactory = connectionFactory;
@@ -25,17 +24,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             FillDictionary();
         }
-
         public override void Open()
         {
-            var info = GetNumberSelectedElement();
-            if (info.pressedKey == ConsoleKey.LeftArrow)
-            {
-                _navigation.Back();
-            }
-            else
-            {
-            }
+            _navigation.Back();
         }
     }
 }

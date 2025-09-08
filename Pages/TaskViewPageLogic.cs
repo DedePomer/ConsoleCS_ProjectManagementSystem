@@ -23,12 +23,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         #region Commands
         private void OpenAddTask(object? obj)
         {
-            
+            _navigation.Open(new AddUserPage(_user, _connectionFactory, _navigation));
         }
 
         #endregion
 
-        public (ConsoleKey pressedKey, int selectedItem) GetSelectedElement()
+        private (ConsoleKey pressedKey, int selectedItem) GetNumberSelectedElement()
         {
             ConsoleKey pressedKey;
             int selectedItem;

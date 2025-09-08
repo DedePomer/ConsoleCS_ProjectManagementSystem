@@ -27,5 +27,10 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
             return user;
 
         }
+
+        public void CreateUser(DefaultUser user)
+        {
+            _repository.CreateUser(user);
+        }
     }
 }

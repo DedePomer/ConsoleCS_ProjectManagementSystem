@@ -27,7 +27,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
-            var info = GetSelectedElement();
+            var info = GetNumberSelectedElement();
             if (info.pressedKey == ConsoleKey.LeftArrow)
             {
                 _navigation.Back();
