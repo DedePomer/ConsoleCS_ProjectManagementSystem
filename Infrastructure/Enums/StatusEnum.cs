@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Attributes;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Enums
 {

@@ -17,9 +17,7 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
 
 
         public string SetTaskName(DefaultTask task)
-        {
-            FieldInfo field = task.Status.GetType().GetField(task.Status.ToString());
-            
+        {            
             return Name = task.Name + NAME_SPLITTER + task.Description + NAME_SPLITTER + task.Status.GetDescription();
         }
 
