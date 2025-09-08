@@ -13,7 +13,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void CreateNewUser()
         {
-            List<DefaultRole> roles = _userCreationService
+            List<DefaultRole> roles = _roleCreationService
                 .GetRoles()
                 .ToList();
             var rolesNames = roles
@@ -29,7 +29,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 newUser.Password = _elements["Пароль"];
                 newUser.Role = roles[roleId];
 
-                if (!_userCreationService.UserExist(newUser.Name))
+                if (!_userCreationService.UserAuthentication(newUser.Name, newUser.Password))
                 {
                     _userCreationService.CreateUser(newUser);
                     break;

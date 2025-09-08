@@ -13,7 +13,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
 
-        private UserCreationService _userCreationService;
+        private UserService _userCreationService;
+        private RoleService _roleCreationService;
 
         private Dictionary<string, string> _elements = new Dictionary<string, string>();
 
@@ -22,7 +23,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             _user = user;
             _connectionFactory = connectionFactory;
             _navigation = navigation;
-            _userCreationService = new UserCreationService(new UserCreationRepository(_connectionFactory));
+
+            _userCreationService = new UserService(new UserRepository(_connectionFactory));
+            _roleCreationService = new RoleService(new RoleRepository(_connectionFactory));
 
             _navigation.Add(this);
 
