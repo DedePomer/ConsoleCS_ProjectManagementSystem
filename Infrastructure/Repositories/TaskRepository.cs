@@ -35,9 +35,9 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             connection.Execute(new CommandDefinition("""
 
                 INSERT INTO Tasks (name,description,status,userId)
-                VALUES (@Name, @Pasword, @Role);
+                VALUES (@Name, @Description, @Status, @UserId);
 
-                """, new { Name = task.Name, Description = task.Description, Status = task.Status, task.User.Id }));
+                """, new { Name = task.Name, Description = task.Description, Status = task.Status, UserId = task.User.Id }));
 
         }
     }

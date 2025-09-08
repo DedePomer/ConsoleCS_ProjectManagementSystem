@@ -87,6 +87,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
                 
                 INSERT INTO Users (id, name, password, roleid)
                 VALUES  
+                (0,'defaultUser',,)  
                 (1,'admin', @Password, 1)            
                 
                 """, new { Password = HashService.GetHash(adminPassword) }));

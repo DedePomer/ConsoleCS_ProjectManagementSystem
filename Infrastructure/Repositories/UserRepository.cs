@@ -46,6 +46,22 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             return role ?? throw new ArgumentNullException(nameof(role));
         }
 
+        public int GetUserId(string login)
+        {
+            using var connection = _connection.CreateConnection();
+
+            int id = connection.ExecuteScalar<int>(new CommandDefinition("""
+                
+                SELECT id
+                FROM Users
+                WHERE name = @Name
+                
+                """, new { Name = login }));
+
+            return id;
+        }
+
+
         public void CreateUser(DefaultUser user)
         {
             using var connection = _connection.CreateConnection();

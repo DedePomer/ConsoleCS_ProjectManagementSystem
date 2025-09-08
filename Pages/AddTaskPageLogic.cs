@@ -27,13 +27,14 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 };
 
 
-                if (true)
+                if (!_taskService.IsTaskExist(newTask))
                 {
-
+                    _taskService.CreateTask(newTask);
+                    break;
                 }
                 else
                 {
-
+                    ShowException("Такая задача уже есть");
                 }
             }
             

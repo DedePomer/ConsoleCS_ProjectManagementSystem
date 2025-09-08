@@ -23,7 +23,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         #region Commands
         private void OpenAddTask(object? obj)
         {
-            _navigation.Open(new AddUserPage(_user, _connectionFactory, _navigation));
+            _navigation.Open(new AddTaskPage(_user, _connectionFactory, _navigation));
         }
 
         #endregion

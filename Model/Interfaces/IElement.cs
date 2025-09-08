@@ -4,5 +4,6 @@
     {
         int Id { get; set; }
         string Name { get; set; }
+        Action<object?> Execute { get; set; }
     }
 }

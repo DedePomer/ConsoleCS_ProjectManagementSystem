@@ -20,6 +20,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         {
             DefaultUser user = new DefaultUser();
 
+            user.Id = _repository.GetUserId(login);
             user.Name = login;
             user.Password = string.Empty;
             user.Role = _repository.GetUserRole(login);

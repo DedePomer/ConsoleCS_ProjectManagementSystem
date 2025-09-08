@@ -35,6 +35,11 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             }
             else
             {
+                _elements.Where(x => x.Key.Id == info.selectedItem)
+                    .FirstOrDefault()
+                    .Key
+                    .Execute
+                    ?.Invoke(default);
             }
         }
     }
