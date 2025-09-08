@@ -15,6 +15,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private readonly IPageNavigation _navigation;
 
         private readonly TaskService _taskService;
+        private readonly UserService _userService;
 
         private Dictionary<string, string> _elements = new Dictionary<string, string>();
 
@@ -25,6 +26,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             _navigation = navigation;
 
             _taskService = new TaskService(new TaskRepository(_connectionFactory));
+            _userService = new UserService(new UserRepository(_connectionFactory));
 
             _navigation.Add(this);
 

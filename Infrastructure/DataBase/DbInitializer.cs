@@ -83,15 +83,6 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
             {
                 const string adminPassword = "admin";
 
-                connection.Execute("""
-                
-                INSERT INTO Users (id, name)
-                VALUES  
-                (0,'defaultUser')           
-                
-                """);
-
-
                 connection.Execute(new CommandDefinition("""
                 
                 INSERT INTO Users (id, name, password, roleid)

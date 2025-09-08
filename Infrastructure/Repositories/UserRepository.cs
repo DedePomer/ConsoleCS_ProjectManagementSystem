@@ -67,7 +67,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
 
             IEnumerable<DefaultUser> users = connection.Query<DefaultUser>("""
 
-                SELECT id, name, password
+                SELECT id, name
                 FROM Users
 
                 """) ?? throw new ArgumentNullException(nameof(users));
