@@ -38,7 +38,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void OpenTaskViewer(object? obj)
         {
-            Environment.Exit(0);
+            _navigation.Open(new TaskViewPage(_user, _connectionFactory, _navigation));
         }
 
         private void OpenAddUser(object? obj)
@@ -48,7 +48,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         #endregion
 
 
-        private (ConsoleKey pressedKey, int selectedItem) GetPressedInfo()
+        private (ConsoleKey pressedKey, int selectedItem) GetSelectedElement()
         {
             string title = $"Добро пожаловать {_user.Name}!\n";
 
