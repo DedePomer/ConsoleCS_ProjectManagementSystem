@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using Dapper;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
@@ -83,7 +81,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
                 """);
             if (userCount == 0)
             {
-                const string adminPassword = "admin";               
+                const string adminPassword = "admin";
 
                 connection.Execute(new CommandDefinition("""
                 
