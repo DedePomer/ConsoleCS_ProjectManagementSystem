@@ -35,5 +35,6 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             CreateNewTask();
             _navigation.Back();
         }
+
     }
 }
