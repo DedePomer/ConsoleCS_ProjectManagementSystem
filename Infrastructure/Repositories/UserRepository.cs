@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using Dapper;
@@ -43,9 +41,21 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 FROM Users
                 WHERE name = @Login)
                 
-                """, new { Login = login}));
+                """, new { Login = login }));
 
             return role ?? throw new ArgumentNullException(nameof(role));
+        }
+
+        public void CreateUser(DefaultUser user)
+        {
+            using var connection = _connection.CreateConnection();
+
+            connection.Execute(new CommandDefinition("""
+
+                INSERT INTO Users (name,password,roleid)
+                VALUES (@Name, @Pasword, @Role);
+
+                """, new { Name = user.Name, Pasword = HashService.GetHash(user.Password), Role = user.Role.Id }));
         }
     }
 
