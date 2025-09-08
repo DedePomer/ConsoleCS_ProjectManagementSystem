@@ -17,6 +17,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
         {
             using var connection = _connectionFactory.CreateConnection();
 
+            //создание таблиц
 
             connection.Execute("""
                 
@@ -42,6 +43,22 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
                 
                 """);
 
+            connection.Execute("""
+
+                CREATE TABLE if not EXISTS Tasks
+                (
+                   	id INTEGER PRIMARY KEY,
+                    name text,
+                    discription text,
+                  	status text,
+                   	userId int,
+                    FOREIGN KEY(userId) REFERENCES Users(id)
+                );
+
+                """);
+
+            //заполнение таблиц
+
             var rolesCount = connection.ExecuteScalar<int>("""
                 
                 SELECT COUNT(*) FROM Roles           
@@ -53,7 +70,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
                  
                  INSERT INTO Roles (id, name, rights)
                  VALUES 
-                 (1,'Manager',15),
+                 (1,'Manager',31),
                  (2,'User',8)              
                  
                 """);
