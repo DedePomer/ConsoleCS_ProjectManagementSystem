@@ -1,16 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
-    public partial class TaskChangePage
+    public partial class TaskChangeStatusPage
     {
         public override void FillDictionary()
         {
-            throw new NotImplementedException();
+            foreach (StatusEnum status in Enum.GetValues(typeof(StatusEnum)))
+            {
+                _elements.Add(status.GetDescription());
+            }
+        }
+
+        private void ChangeStatus()
+        {
+            ShowDisplayElements(_elements);
+
+            NavigationLoopService loopService = new NavigationLoopService
+                (_elements, GetCountStrokeInTitle());
+
+            _task.Status = (StatusEnum)loopService.GetNumberSelectedElement(false);
+
+            _taskService.ChangeStatusInTask(_task);
         }
     }
 }

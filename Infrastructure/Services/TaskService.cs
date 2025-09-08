@@ -25,5 +25,11 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         {
             return _repository.GetTasks();
         }
+
+
+        public void ChangeStatusInTask(DefaultTask task)
+        { 
+            _repository.ChangeStatusInTask(task);
+        }
     }
 }

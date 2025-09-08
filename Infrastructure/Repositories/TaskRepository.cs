@@ -1,4 +1,5 @@
-﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+﻿using System.Collections.Generic;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using Dapper;
 
@@ -38,6 +39,20 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 VALUES (@Name, @Description, @Status, @UserId);
 
                 """, new { Name = task.Name, Description = task.Description, Status = task.Status, UserId = task.User.Id }));
+
+        }
+
+        public void ChangeStatusInTask(DefaultTask task)
+        {
+            using var connection = _connection.CreateConnection();
+
+            connection.Execute(new CommandDefinition("""
+
+                UPDATE Tasks
+                SET status = @Status
+                WHERE id = @Id;
+
+                """, new {Id = task.Id, Status = task.Status}));
 
         }
 
