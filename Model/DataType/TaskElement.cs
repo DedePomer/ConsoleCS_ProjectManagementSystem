@@ -1,4 +1,6 @@
-﻿using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
+﻿using System.Reflection;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Attributes;
+using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 
 namespace ConsoleCS_ProjectManagementSystem.Model.DataType
 {
@@ -13,7 +15,8 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
 
         public string GetTaskName(DefaultTask task)
         {
-            return Name = task.Name + NAME_SPLITTER + task.Description + task.Status;
+            FieldInfo field = task.Status.GetType().GetField(task.Status.ToString());
+            return Name = task.Name + NAME_SPLITTER + task.Description + NAME_SPLITTER + field?.GetCustomAttribute<StatusNameAtribute>();
         }
 
     }

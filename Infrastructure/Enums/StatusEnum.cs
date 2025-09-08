@@ -1,16 +1,17 @@
 ﻿using System.ComponentModel;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Attributes;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Enums
 {
     public enum StatusEnum
     {
-        [Description("None")]
+        [StatusNameAtribute("None")]
         None = 0,
-        [Description("Done")]
+        [StatusNameAtribute("Done")]
         Done = 1,
-        [Description("To do")]
+        [StatusNameAtribute("To do")]
         ToDo = 2,
-        [Description("In Progress")]
+        [StatusNameAtribute("In Progress")]
         InProgress = 3
     }
 }
