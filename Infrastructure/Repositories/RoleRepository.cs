@@ -26,5 +26,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
 
             return roles;
         }
+
+
     }
 }
