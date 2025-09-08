@@ -19,9 +19,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                     Id = 0,
                     Name = "Добавить задачу",
                     Execute = OpenAddTask
-                }] = RightsEnum.CreateTask, 
-                
-
+                }] = RightsEnum.CreateTask,               
             };
         }
 
