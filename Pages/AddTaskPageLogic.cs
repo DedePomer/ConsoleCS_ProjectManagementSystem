@@ -21,7 +21,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 newTask.Name = _elements["Название задачи"];
                 newTask.Description = _elements["Описание"];
                 newTask.Status = StatusEnum.None;
-                newTask.User = new DefaultUser();
+                newTask.User = new DefaultUser()
+                {
+                    Id = 0
+                };
 
 
                 if (true)

@@ -47,7 +47,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
                 (
                    	id INTEGER PRIMARY KEY,
                     name text,
-                    discription text,
+                    description text,
                   	status int,
                    	userId int,
                     FOREIGN KEY(userId) REFERENCES Users(id)
