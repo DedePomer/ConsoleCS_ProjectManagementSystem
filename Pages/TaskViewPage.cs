@@ -28,12 +28,11 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             _taskService = new TaskService(new TaskRepository(_connectionFactory));
 
             _navigation.Add(this);
-
-            FillDictionary();
         }
 
         public override void Open()
         {
+            FillDictionary();
             var info = GetNumberSelectedElement();
             if (info.pressedKey == ConsoleKey.LeftArrow)
             {

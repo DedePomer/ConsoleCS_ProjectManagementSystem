@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
@@ -37,7 +36,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 }, RightsEnum.None);
                 (_elements.Last().Key as TaskElement).SetTaskName(task);
             }
-           
+
         }
 
         #region Commands
@@ -48,7 +47,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void OpenDefault(object? obj)
         {
-            
+
         }
 
         #endregion
