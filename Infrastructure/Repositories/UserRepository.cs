@@ -61,7 +61,6 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             return id;
         }
 
-
         public void CreateUser(DefaultUser user)
         {
             using var connection = _connection.CreateConnection();

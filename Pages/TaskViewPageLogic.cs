@@ -9,6 +9,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
     {
         public override void FillDictionary()
         {
+            List<TaskElement> tasks = new List<TaskElement>();
+
+
             _elements = new Dictionary<IElement, RightsEnum>()
             {
                 [new MenuElement()
@@ -16,7 +19,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                     Id = 0,
                     Name = "Добавить задачу",
                     Execute = OpenAddTask
-                }] = RightsEnum.CreateTask,              
+                }] = RightsEnum.CreateTask, 
+                
+
             };
         }
 

@@ -20,5 +20,10 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         {
             _repository.CreateTask(task);
         }
+
+        public IEnumerable<DefaultTask> GetTasks()
+        {
+            return _repository.GetTasks();
+        }
     }
 }

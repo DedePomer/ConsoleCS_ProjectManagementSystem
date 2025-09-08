@@ -40,5 +40,19 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 """, new { Name = task.Name, Description = task.Description, Status = task.Status, UserId = task.User.Id }));
 
         }
+
+        public IEnumerable<DefaultTask> GetTasks()
+        {
+            using var connection = _connection.CreateConnection();
+
+            IEnumerable<DefaultTask> roles = connection.Query<DefaultTask>("""
+
+                SELECT id, name, description, status, userId
+                FROM Tasks
+
+                """) ?? throw new ArgumentNullException(nameof(roles));
+
+            return roles;
+        }
     }
 }
