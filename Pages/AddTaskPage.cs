@@ -26,6 +26,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         }
         public override void Open()
         {
+            CreateNewTask();
             _navigation.Back();
         }
     }

@@ -1,4 +1,5 @@
-﻿using ConsoleCS_ProjectManagementSystem.Model.DataType;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+using ConsoleCS_ProjectManagementSystem.Model.DataType;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
@@ -12,22 +13,27 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void CreateNewTask()
         {
-            ShowElementsForInputs(_elements, "Заполните поля\n");
-
-            TaskElement newTask = new TaskElement();
-            newTask.Name = _elements["Название задачи"];
-            newTask.Description = _elements["Описание"];
-
-
-            if (!_userCreationService.UserAuthentication(newUser.Name, newUser.Password))
+            while (true) 
             {
-                _userCreationService.CreateUser(newUser);
-                break;
+                ShowElementsForInputs(_elements, "Заполните поля\n");
+
+                DefaultTask newTask = new DefaultTask();
+                newTask.Name = _elements["Название задачи"];
+                newTask.Description = _elements["Описание"];
+                newTask.Status = StatusEnum.None;
+                newTask.User = new DefaultUser();
+
+
+                if (true)
+                {
+
+                }
+                else
+                {
+
+                }
             }
-            else
-            {
-                ShowException("Такой пользователь существует");
-            }
+            
 
         }
     }
