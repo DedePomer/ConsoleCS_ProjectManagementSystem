@@ -83,11 +83,19 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
             {
                 const string adminPassword = "admin";
 
+                connection.Execute("""
+                
+                INSERT INTO Users (id, name)
+                VALUES  
+                (0,'defaultUser')           
+                
+                """);
+
+
                 connection.Execute(new CommandDefinition("""
                 
                 INSERT INTO Users (id, name, password, roleid)
                 VALUES  
-                (0,'defaultUser',,)  
                 (1,'admin', @Password, 1)            
                 
                 """, new { Password = HashService.GetHash(adminPassword) }));
