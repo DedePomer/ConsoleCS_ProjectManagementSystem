@@ -1,44 +1,62 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public partial class AddTaskPage
     {
+        private RightsEnum GetViewRight(DefaultUser user)
+        {
+            if (user.Role.Id == 1)
+                return RightsEnum.ViewManager;
+            else
+                return RightsEnum.ViewDefaultUser;
+        }
+
         public override void FillDictionary()
         {
-            _elements.Add("Название задачи", "");
-            _elements.Add("Описание", "");
+            _inputElements.Add(TASK_NAME_VIEW_TEXT, "");
+            _inputElements.Add(TASK_DESCRIPTION_VIEW_TEXT, "");
+
+            List<DefaultUser> users = _userService
+                .GetUsers()
+                .ToList();
+
+            foreach (DefaultUser user in users)
+            {
+                _elements.Add(new UserElement()
+                {
+                    Name = user.Name,
+                    User = user,
+                }, GetViewRight(user));               
+            }
         }
 
-        private List<DefaultUser> GetDefaultUsers()
-        {
-            List<DefaultUser> users = _userService.GetUsers().ToList();
 
-            return users.Where(x => x.Role.Id == 2).ToList();
-        }
 
         private int GetIdSelectedUser()
         {
-            List<DefaultUser> defaultUsers = GetDefaultUsers();
+            IEnumerable<IElement> showElements = CreateShowList(_elements, _user);
 
-            ShowDisplayElements(defaultUsers.Select(x => x.Name).ToList(), "Выберите пользователя на которого нужно назначить задачу\n");
-            NavigationLoopService loopService = new NavigationLoopService(defaultUsers.Select(x => x.Name).ToList(), GetCountStrokeInTitle());
-            return defaultUsers[loopService.GetNumberSelectedElement(false)].Id;      
+
+            ShowDisplayElements(showElements, "Выберите пользователя на которого нужно назначить задачу\n");
+            NavigationLoopService loopService = new NavigationLoopService(showElements, GetCountStrokeInTitle());
+            return (showElements.ToList())[loopService.GetNumberSelectedElement(false)].Id;
         }
 
         private void CreateNewTask()
         {
-            while (true) 
-            {               
-                ShowElementsForInputs(_elements, "Заполните поля\n");
+            while (true)
+            {
+                ShowElementsForInputs(_inputElements, "Заполните поля\n");
 
                 DefaultTask newTask = new DefaultTask();
-                newTask.Name = _elements["Название задачи"];
-                newTask.Description = _elements["Описание"];
+                newTask.Name = _inputElements[TASK_NAME_VIEW_TEXT];
+                newTask.Description = _inputElements[TASK_DESCRIPTION_VIEW_TEXT];
                 newTask.Status = StatusEnum.None;
-                newTask.User = new DefaultUser() 
+                newTask.User = new DefaultUser()
                 {
                     Id = GetIdSelectedUser(),
                 };
@@ -54,7 +72,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                     ShowException("Такая задача уже есть");
                 }
             }
-            
+
 
         }
     }

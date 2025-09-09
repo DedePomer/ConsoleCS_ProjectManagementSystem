@@ -1,14 +1,18 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public partial class AddTaskPage : BasePage
     {
+        private const string TASK_NAME_VIEW_TEXT = "Название задачи";
+        private const string TASK_DESCRIPTION_VIEW_TEXT = "Описание";
 
         private readonly DefaultUser _user;
         private readonly IDbConnectionFactory _connectionFactory;
@@ -17,7 +21,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private readonly TaskService _taskService;
         private readonly UserService _userService;
 
-        private Dictionary<string, string> _elements = new Dictionary<string, string>();
+        private Dictionary<string, string> _inputElements = new Dictionary<string, string>();
+        private Dictionary<IElement, RightsEnum> _elements = new Dictionary<IElement, RightsEnum>();
 
         public AddTaskPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation)
         {
