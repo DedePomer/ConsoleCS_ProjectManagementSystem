@@ -39,11 +39,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 _navigation.Back();
             }
             else
-            {
-                IElement selectedElement = _elements.Where(x => x.Key.Id == info.selectedItem)
-                    .FirstOrDefault()
-                    .Key;
-                selectedElement.Execute?.Invoke(selectedElement);
+            { 
+                info.selectedItem.Execute?.Invoke(info.selectedItem);
             }
         }
     }

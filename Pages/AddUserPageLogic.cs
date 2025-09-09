@@ -9,8 +9,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
     {
         public override void FillDictionary()
         {
-            _elements.Add(LOGIN_VIEW_TEXT, "");
-            _elements.Add(PASSWOR_VIEW_TEXT, "");
+            _inputElements.Add(LOGIN_VIEW_TEXT, "");
+            _inputElements.Add(PASSWOR_VIEW_TEXT, "");
 
             List<DefaultRole> defaultRoles = _roleCreationService
                 .GetRoles()
@@ -18,7 +18,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             foreach (DefaultRole role in defaultRoles)
             {
-                _roles.Add(new RoleElement()
+                _elements.Add(new RoleElement()
                 {
                     Name = role.Name,
                     Role = role,
@@ -28,18 +28,15 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void CreateNewUser()
         {
-            IEnumerable<IElement> showElements = _roles
-                .Where(x => _user.UserHasRights(x.Value))
-                .Select(x => x.Key)
-                .ToList();
+            IEnumerable<IElement> showElements = CreateShowList(_elements, _user);
 
             while (true)
             {
                 int selectedItemIndex = GetSelectedItemIndex(showElements);
 
                 DefaultUser newUser = new DefaultUser();
-                newUser.Name = _elements[LOGIN_VIEW_TEXT];
-                newUser.Password = _elements[PASSWOR_VIEW_TEXT];
+                newUser.Name = _inputElements[LOGIN_VIEW_TEXT];
+                newUser.Password = _inputElements[PASSWOR_VIEW_TEXT];
                 newUser.Role = (showElements.ToList()[selectedItemIndex] as RoleElement).Role;
 
                 if (!_userCreationService.UserAuthentication(newUser.Name, newUser.Password))
@@ -60,7 +57,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             NavigationLoopService loopService = new NavigationLoopService(showElements, GetCountStrokeInTitle());
             int selectedItem = loopService.GetNumberSelectedElement(false);
 
-            ShowElementsForInputs(_elements, "Введите логин и пароль нового пользователя\n");
+            ShowElementsForInputs(_inputElements, "Введите логин и пароль нового пользователя\n");
             loopService = new NavigationLoopService(showElements, GetCountStrokeInTitle());
 
             return selectedItem;

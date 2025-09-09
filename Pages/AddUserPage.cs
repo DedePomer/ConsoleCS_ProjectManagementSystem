@@ -21,8 +21,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private UserService _userCreationService;
         private RoleService _roleCreationService;
 
-        private Dictionary<string, string> _elements = new Dictionary<string, string>();
-        private Dictionary<IElement, RightsEnum> _roles = new Dictionary<IElement, RightsEnum>();
+        private Dictionary<string, string> _inputElements = new Dictionary<string, string>();
+        private Dictionary<IElement, RightsEnum> _elements = new Dictionary<IElement, RightsEnum>();
 
         public AddUserPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation) 
         {

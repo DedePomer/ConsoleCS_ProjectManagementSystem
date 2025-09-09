@@ -33,6 +33,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 {
                     Id = idElement++,
                     Execute = OpenDefault,
+                    Task = task,
                 }, RightsEnum.None);
                 (_elements.Last().Key as TaskElement).SetTaskName(task);
             }
@@ -54,22 +55,19 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         #endregion
 
-        private (ConsoleKey pressedKey, int selectedItem) GetNumberSelectedElement()
+        private (ConsoleKey pressedKey, TaskElement selectedItem) GetNumberSelectedElement()
         {
             ConsoleKey pressedKey;
-            int selectedItem;
+            TaskElement selectedItem;
 
-            List<string> namesElements = _elements
-               .Where(x => _user.UserHasRights(x.Value))
-               .Select(x => x.Key.Name)
-               .ToList();
+            IEnumerable<IElement> showElements = CreateShowList(_elements, _user);
 
-            ShowDisplayElements(namesElements);
+            ShowDisplayElements(showElements);
 
             NavigationLoopService loopService = new NavigationLoopService
-                (namesElements, GetCountStrokeInTitle());
+                (showElements, GetCountStrokeInTitle());
 
-            selectedItem = loopService.GetNumberSelectedElement(true);
+            selectedItem = (showElements.ToList()[loopService.GetNumberSelectedElement(true)] as TaskElement);
             pressedKey = loopService.PressedKey;
 
 

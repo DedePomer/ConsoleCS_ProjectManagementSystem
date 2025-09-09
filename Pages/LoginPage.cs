@@ -18,7 +18,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private readonly UserService _userDataService;
 
-        private Dictionary<string, string> _elements = new Dictionary<string, string>();
+        private Dictionary<string, string> _inputElements = new Dictionary<string, string>();
 
 
         public LoginPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation)
@@ -37,7 +37,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         {
             InputChek();
 
-            _user = _userDataService.GetUser(_elements[LOGIN_VIEW_TEXT], _elements[PASSWOR_VIEW_TEXT]);
+            _user = _userDataService.GetUser(_inputElements[LOGIN_VIEW_TEXT], _inputElements[PASSWOR_VIEW_TEXT]);
 
             _navigation.Open(new MainMenuPage(_user, _connectionFactory, _navigation));
         }

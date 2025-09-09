@@ -11,6 +11,7 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
         public int Id { get; set; }
         public string Name { get; set; }
         public Action<object?> Execute { get; set; }
+        public DefaultTask Task { get; set; }
 
 
 
