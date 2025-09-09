@@ -47,6 +47,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 ShowException("Пусто");
                 _navigation.Back();
             }
+            _navigation.Back();
         }
     }
 }

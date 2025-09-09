@@ -29,14 +29,17 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
 
 
-        private int GetIdSelectedUser()
+        private int  GetIndexSelectedUser()
         {
             List<IElement> showElements = CreateShowList(_elements, _user);
 
-
             ShowDisplayElements(showElements, "Выберите пользователя на которого нужно назначить задачу\n");
             NavigationLoopService loopService = new NavigationLoopService(showElements, GetCountStrokeInTitle());
-            return (showElements[loopService.GetNumberSelectedElement(false)] as UserElement).User.Id;
+            if (showElements.Count > 0) 
+            {
+                return (showElements[loopService.GetNumberSelectedElement(false)] as UserElement).User.Id;
+            }
+            return 0;            
         }
 
         private void CreateNewTask()
@@ -44,26 +47,35 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             while (true)
             {
                 ShowElementsForInputs(_inputElements, "Заполните поля\n");
+                int index = GetIndexSelectedUser();
 
-                DefaultTask newTask = new DefaultTask();
-                newTask.Name = _inputElements[TASK_NAME_VIEW_TEXT];
-                newTask.Description = _inputElements[TASK_DESCRIPTION_VIEW_TEXT];
-                newTask.Status = StatusEnum.None;
-                newTask.User = new DefaultUser()
+
+                if (index != 0)
                 {
-                    Id = GetIdSelectedUser(),
-                };
-
-
-                if (!_taskService.IsTaskExist(newTask))
+                    DefaultTask newTask = new DefaultTask();
+                    newTask.Name = _inputElements[TASK_NAME_VIEW_TEXT];
+                    newTask.Description = _inputElements[TASK_DESCRIPTION_VIEW_TEXT];
+                    newTask.Status = StatusEnum.None;
+                    newTask.User = new DefaultUser()
+                    {
+                        Id = index,
+                    };
+                    if (!_taskService.IsTaskExist(newTask))
+                    {
+                        _taskService.CreateTask(newTask);
+                        break;
+                    }
+                    else
+                    {
+                        ShowException("Такая задача уже есть");
+                    }
+                }
+                else 
                 {
-                    _taskService.CreateTask(newTask);
+                    ShowException("Создайте обычных пользователей");
                     break;
                 }
-                else
-                {
-                    ShowException("Такая задача уже есть");
-                }
+                    
             }
 
 

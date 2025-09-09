@@ -53,6 +53,11 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             {
                 _navigation.Open(new TaskChangeStatusPage(_user, _connectionFactory, _navigation, obj));
             }
+            if (_user.UserHasRights(RightsEnum.AssignTask))
+            {
+
+            }
+            _navigation.Back();
         }
 
         #endregion
