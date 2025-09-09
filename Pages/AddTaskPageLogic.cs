@@ -25,7 +25,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             ShowDisplayElements(defaultUsers.Select(x => x.Name).ToList(), "Выберите пользователя на которого нужно назначить задачу\n");
             NavigationLoopService loopService = new NavigationLoopService(defaultUsers.Select(x => x.Name).ToList(), GetCountStrokeInTitle());
-            return loopService.GetNumberSelectedElement(false) + 1;      
+            return defaultUsers[loopService.GetNumberSelectedElement(false)].Id;      
         }
 
         private void CreateNewTask()
