@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using Dapper;
 
@@ -52,7 +51,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 SET status = @Status
                 WHERE id = @Id;
 
-                """, new {Id = task.Id, Status = task.Status}));
+                """, new { Id = task.Id, Status = task.Status }));
 
         }
 
@@ -60,14 +59,26 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
         {
             using var connection = _connection.CreateConnection();
 
-            IEnumerable<DefaultTask> roles = connection.Query<DefaultTask>("""
+            IEnumerable<DefaultTask> tasks = connection.Query<DefaultTask, DefaultUser, DefaultTask>("""
 
-                SELECT id, name, description, status, userId
-                FROM Tasks
+                SELECT 
+                t.id as id,
+                t.name as name,
+                t.description as description,
+                t.status as status,
+                u.id as id,
+                u.name as name
+                FROM Tasks t
+                INNER JOIN Users u ON t.userId = u.id
 
-                """) ?? throw new ArgumentNullException(nameof(roles));
+                """, (task, user) =>
+                {
+                    task.User = user;
+                    return task;
+                }
+                , splitOn: "id") ?? throw new ArgumentNullException(nameof(tasks));
 
-            return roles;
+            return tasks;
         }
     }
 }

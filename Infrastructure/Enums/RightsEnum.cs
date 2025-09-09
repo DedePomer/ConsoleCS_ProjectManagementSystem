@@ -6,9 +6,8 @@
         None = 0,
         CreateUser = 1,
         CreateTask = 2,
-        ViewDefaultUser = 4,
+        AssignTask = 4,
         ViewAllTask = 16,       
-        ViewManager = 32,
 
         ChangeStatus = 8
     }

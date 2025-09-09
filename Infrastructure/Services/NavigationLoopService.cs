@@ -66,12 +66,14 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
             int topCursorPosition = _cursorPosition;
             int downCursorPosition = _elemments.Count() + _cursorPosition;
 
-            Console.CursorTop = _cursorPosition;
+            if (topCursorPosition != downCursorPosition)
+            {
+                Console.CursorTop = _cursorPosition;
 
-            HighlightElement(topCursorPosition, topCursorPosition);
+                HighlightElement(topCursorPosition, topCursorPosition);
 
-            PressedKey = GetPressedKey(ref topCursorPosition, downCursorPosition, ReadKey);
-
+                PressedKey = GetPressedKey(ref topCursorPosition, downCursorPosition, ReadKey);               
+            }
             return topCursorPosition - _cursorPosition;
         }
 

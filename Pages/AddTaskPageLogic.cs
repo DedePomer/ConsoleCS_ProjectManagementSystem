@@ -7,14 +7,6 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public partial class AddTaskPage
     {
-        private RightsEnum GetViewRight(DefaultUser user)
-        {
-            if (user.Role.Id == 1)
-                return RightsEnum.ViewManager;
-            else
-                return RightsEnum.ViewDefaultUser;
-        }
-
         public override void FillDictionary()
         {
             _inputElements.Add(TASK_NAME_VIEW_TEXT, "");
@@ -22,6 +14,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             List<DefaultUser> users = _userService
                 .GetUsers()
+                .Where(x => x.Id == 1)
                 .ToList();
 
             foreach (DefaultUser user in users)
@@ -30,7 +23,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 {
                     Name = user.Name,
                     User = user,
-                }, GetViewRight(user));               
+                }, RightsEnum.None);
             }
         }
 

@@ -38,9 +38,14 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             {
                 _navigation.Back();
             }
-            else
-            { 
+            else if (info.selectedItem != default)
+            {
                 info.selectedItem.Execute?.Invoke(info.selectedItem);
+            }
+            else
+            {
+                ShowException("Пусто");
+                _navigation.Back();
             }
         }
     }
