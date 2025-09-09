@@ -46,13 +46,11 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
                 if (selectedUserIndex != 0)
                 {
-                    DefaultUser newUser = new DefaultUser()
-                    {
-                        Id = selectedUserIndex,
-                    };
+                    _task.Task.User.Id = selectedUserIndex;
+
                     if (_taskService.IsTaskExist(_task.Task))
                     {
-                        _taskService.ChangeUserInTask(_task.Task);
+                        _taskService.ChangeUserIdInTask(_task.Task);
                         break;
                     }
                     else

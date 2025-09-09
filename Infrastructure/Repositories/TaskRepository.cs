@@ -55,14 +55,14 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
 
         }
 
-        public void ChangeUserInTask(DefaultTask task)
+        public void ChangeUserIdInTask(DefaultTask task)
         {
             using var connection = _connection.CreateConnection();
 
             connection.Execute(new CommandDefinition("""
 
                 UPDATE Tasks
-                SET userId = @Status
+                SET userId = @UserId
                 WHERE id = @Id;
 
                 """, new { Id = task.Id, UserId = task.User.Id }));

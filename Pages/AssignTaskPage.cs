@@ -1,6 +1,7 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
@@ -26,6 +27,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             _connectionFactory = connectionFactory;
             _navigation = navigation;
             _task = task as TaskElement;
+
+            _taskService = new TaskService(new TaskRepository(_connectionFactory));
+            _userService = new UserService(new UserRepository(_connectionFactory));
 
             _navigation.Add(this);
 

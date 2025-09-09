@@ -32,9 +32,9 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
             _repository.ChangeStatusInTask(task);
         }
 
-        public void ChangeUserInTask(DefaultTask task)
+        public void ChangeUserIdInTask(DefaultTask task)
         {
-            _repository.ChangeUserInTask(task);
+            _repository.ChangeUserIdInTask(task);
         }
     }
 }

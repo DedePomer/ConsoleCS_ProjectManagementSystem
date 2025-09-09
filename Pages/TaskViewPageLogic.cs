@@ -55,7 +55,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             }
             if (_user.UserHasRights(RightsEnum.AssignTask))
             {
-
+                _navigation.Open(new AssignTaskPage(_user, _connectionFactory, _navigation, obj));
             }
             _navigation.Back();
         }
