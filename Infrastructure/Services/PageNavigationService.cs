@@ -22,5 +22,14 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         {           
             nextPage.Open();
         }
+
+        public void Open(BasePage nextPage, bool deleteLast)
+        {
+            if (deleteLast)
+            {
+                _pageList.RemoveLast();
+            }
+            nextPage.Open();
+        }
     }
 }

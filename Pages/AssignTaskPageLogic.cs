@@ -24,7 +24,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             }
         }
 
-        private int GetIndexSelectedUser()
+        private int GetIdSelectedUser()
         {
             List<IElement> showElements = CreateShowList(_elements, _user);
 
@@ -41,12 +41,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         {
             while (true)
             {
-                int selectedUserIndex = GetIndexSelectedUser();
+                int selectedUserId = GetIdSelectedUser();
 
 
-                if (selectedUserIndex != 0)
+                if (selectedUserId != 0)
                 {
-                    _task.Task.User.Id = selectedUserIndex;
+                    _task.Task.User.Id = selectedUserId;
 
                     if (_taskService.IsTaskExist(_task.Task))
                     {
@@ -55,7 +55,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                     }
                     else
                     {
-                        ShowException("Задача исчезла");
+                        _taskService.CreateTask(_task.Task);
+                        break;
                     }
                 }
                 else
