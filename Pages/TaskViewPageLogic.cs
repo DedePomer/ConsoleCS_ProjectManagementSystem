@@ -36,7 +36,6 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 }, RightsEnum.None);
                 (_elements.Last().Key as TaskElement).SetTaskName(task);
             }
-
         }
 
         #region Commands
