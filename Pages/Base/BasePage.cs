@@ -78,11 +78,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 
 
 
-        public IEnumerable<IElement> CreateShowList(Dictionary<IElement, RightsEnum> elements, DefaultUser user)
+        public List<IElement> CreateShowList(Dictionary<IElement, RightsEnum> elements, DefaultUser user)
         {
             return elements
                 .Where(x => user.UserHasRights(x.Value))
-                .Select(x => x.Key);
+                .Select(x => x.Key)
+                .ToList();
         }
         public abstract void Open();
         public abstract void FillDictionary();

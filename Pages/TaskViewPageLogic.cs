@@ -55,10 +55,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         #endregion
 
-        private (ConsoleKey pressedKey, TaskElement selectedItem) GetNumberSelectedElement()
+        private (ConsoleKey pressedKey, IElement selectedItem) GetNumberSelectedElement()
         {
             ConsoleKey pressedKey;
-            TaskElement selectedItem;
+            IElement selectedItem;
 
             IEnumerable<IElement> showElements = CreateShowList(_elements, _user);
 
@@ -67,7 +67,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             NavigationLoopService loopService = new NavigationLoopService
                 (showElements, GetCountStrokeInTitle());
 
-            selectedItem = (showElements.ToList()[loopService.GetNumberSelectedElement(true)] as TaskElement);
+            selectedItem = showElements.ToList()[loopService.GetNumberSelectedElement(true)];
             pressedKey = loopService.PressedKey;
 
 

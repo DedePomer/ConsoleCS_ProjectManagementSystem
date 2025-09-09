@@ -38,12 +38,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private int GetIdSelectedUser()
         {
-            IEnumerable<IElement> showElements = CreateShowList(_elements, _user);
+            List<IElement> showElements = CreateShowList(_elements, _user);
 
 
             ShowDisplayElements(showElements, "Выберите пользователя на которого нужно назначить задачу\n");
             NavigationLoopService loopService = new NavigationLoopService(showElements, GetCountStrokeInTitle());
-            return (showElements.ToList())[loopService.GetNumberSelectedElement(false)].Id;
+            return (showElements[loopService.GetNumberSelectedElement(false)] as UserElement).User.Id;
         }
 
         private void CreateNewTask()
