@@ -31,5 +31,10 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         { 
             _repository.ChangeStatusInTask(task);
         }
+
+        public void ChangeUserInTask(DefaultTask task)
+        {
+            _repository.ChangeUserInTask(task);
+        }
     }
 }
