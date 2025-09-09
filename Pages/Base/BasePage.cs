@@ -1,4 +1,7 @@
-﻿namespace ConsoleCS_ProjectManagementSystem.Pages.Base
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
+
+namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 {
     public abstract class BasePage
     {
@@ -18,7 +21,7 @@
             """;
 
 
-        public virtual void ShowDisplayElements(List<string> elements, string title = STANDART_TITLE)
+        public virtual void ShowDisplayElements(IEnumerable<IElement> elements, string title = STANDART_TITLE)
         {
             Console.Clear();
 
@@ -26,9 +29,9 @@
 
             Console.WriteLine(title);
 
-            foreach (string element in elements)
+            foreach (var element in elements)
             {
-                Console.WriteLine($"{element}");
+                Console.WriteLine($"{element.Name}");
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
+using ConsoleCS_ProjectManagementSystem.Model.DataType;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
@@ -20,7 +21,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             NavigationLoopService loopService = new NavigationLoopService
                 (_elements, GetCountStrokeInTitle());
 
-            _task.Status = (StatusEnum)loopService.GetNumberSelectedElement(false);
+            _task.Status  = (StatusEnum)loopService.GetNumberSelectedElement(false);
 
             _taskService.ChangeStatusInTask(_task);
         }

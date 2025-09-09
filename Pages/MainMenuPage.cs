@@ -27,18 +27,14 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
-            var info = GetNumberSelectedElement();
+            var info = GetSelectedElement();
             if (info.pressedKey == ConsoleKey.LeftArrow)
             {
                 _navigation.Back();
             }
             else
             {
-                _elements.Where(x => x.Key.Id == info.selectedItem)
-                    .FirstOrDefault()
-                    .Key
-                    .Execute
-                    ?.Invoke(default);
+                info.selectedItem.Execute?.Invoke(info.selectedItem);
             }
         }
 

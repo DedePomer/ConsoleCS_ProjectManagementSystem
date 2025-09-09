@@ -46,7 +46,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void OpenDefault(object? obj)
         {
-
+            if (_user.UserHasRights(RightsEnum.ChangeStatus)) 
+            {
+                _navigation.Open(new TaskChangeStatusPage(_user, _connectionFactory, _navigation, obj));
+            }  
         }
 
         #endregion

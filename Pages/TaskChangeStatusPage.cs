@@ -19,12 +19,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private List<string> _elements = new List<string>();
 
-        public TaskChangeStatusPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation, DefaultTask? task)
+        public TaskChangeStatusPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation, object? task)
         {
             _user = user;
             _connectionFactory = connectionFactory;
             _navigation = navigation;
-            _task = task;
+            _task = task as DefaultTask;
 
             _taskService = new TaskService(new TaskRepository(_connectionFactory));
 

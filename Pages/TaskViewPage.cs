@@ -40,11 +40,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             }
             else
             {
-                _elements.Where(x => x.Key.Id == info.selectedItem)
+                IElement selectedElement = _elements.Where(x => x.Key.Id == info.selectedItem)
                     .FirstOrDefault()
-                    .Key
-                    .Execute
-                    ?.Invoke(default);
+                    .Key;
+                selectedElement.Execute?.Invoke(selectedElement);
             }
         }
     }

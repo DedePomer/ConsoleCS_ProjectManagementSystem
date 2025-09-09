@@ -1,8 +1,10 @@
-﻿namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
+﻿using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
+
+namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
     public class NavigationLoopService
     {
-        private readonly List<string> _elemments;
+        private readonly List<IElement> _elemments;
         private readonly int _cursorPosition;
 
         private ConsoleColor _defaultColor = Console.ForegroundColor;
@@ -10,19 +12,19 @@
 
         public ConsoleKey PressedKey { get; private set; }
 
-        public NavigationLoopService(List<string> elemments, int cursorPosition)
+        public NavigationLoopService(IEnumerable<IElement> elemments, int cursorPosition)
         {
-            _elemments = elemments;
+            _elemments = elemments.ToList();
             _cursorPosition = cursorPosition;
         }
 
         private void HighlightElement(int correntCursorPosition, int pastCursorPosition)
         {
             Console.SetCursorPosition(0, pastCursorPosition);
-            Console.WriteLine(_elemments[pastCursorPosition - _cursorPosition]);
+            Console.WriteLine(_elemments[pastCursorPosition - _cursorPosition].Name);
             Console.SetCursorPosition(0, correntCursorPosition);
             Console.ForegroundColor = _highlightColor;
-            Console.WriteLine(_elemments[correntCursorPosition - _cursorPosition]);
+            Console.WriteLine(_elemments[correntCursorPosition - _cursorPosition].Name);
             Console.ForegroundColor = _defaultColor;
             Console.CursorTop = correntCursorPosition;
         }

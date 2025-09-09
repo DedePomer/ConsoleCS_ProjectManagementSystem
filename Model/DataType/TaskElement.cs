@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Attributes;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 
 namespace ConsoleCS_ProjectManagementSystem.Model.DataType
@@ -17,7 +15,7 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
 
 
         public string SetTaskName(DefaultTask task)
-        {            
+        {
             return Name = task.Name + NAME_SPLITTER + task.Description + NAME_SPLITTER + task.Status.GetDescription();
         }
 

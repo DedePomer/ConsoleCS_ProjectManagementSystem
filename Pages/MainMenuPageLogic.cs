@@ -1,6 +1,8 @@
-﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+﻿using System.Collections.Generic;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
@@ -48,27 +50,27 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         #endregion
 
 
-        private (ConsoleKey pressedKey, int selectedItem) GetNumberSelectedElement()
+        private (ConsoleKey pressedKey, IElement selectedItem) GetSelectedElement()
         {
             string title = $"Добро пожаловать {_user.Name}!\n";
 
             ConsoleKey pressedKey;
-            int numberOfSelectedElement;
+            IElement selectedItem;
 
-            List<string> namesElements = _elements
+            IEnumerable<IElement> showElements = _elements
                 .Where(x => _user.UserHasRights(x.Value))
-                .Select(x => x.Key.Name)
+                .Select(x => x.Key)
                 .ToList();
 
-            ShowDisplayElements(namesElements, title);
+            ShowDisplayElements(showElements, title);
 
             NavigationLoopService loopService = new NavigationLoopService
-                (namesElements, GetCountStrokeInTitle());
+                (showElements, GetCountStrokeInTitle());
 
-            numberOfSelectedElement = loopService.GetNumberSelectedElement(true);
+            selectedItem = showElements.ToList()[loopService.GetNumberSelectedElement(true)];
             pressedKey = loopService.PressedKey;
 
-            return (pressedKey, numberOfSelectedElement);
+            return (pressedKey, selectedItem);
         }
     }
 }
