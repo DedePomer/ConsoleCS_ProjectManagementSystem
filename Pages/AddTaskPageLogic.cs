@@ -14,7 +14,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             List<DefaultUser> users = _userService
                 .GetUsers()
-                .Where(x => x.Id == 1)
+                .Where(x => x.Role.Id == 2)
                 .ToList();
 
             foreach (DefaultUser user in users)

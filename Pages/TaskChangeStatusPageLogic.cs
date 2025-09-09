@@ -27,9 +27,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             NavigationLoopService loopService = new NavigationLoopService
                 (showElements, GetCountStrokeInTitle());
 
-            _task.Status  = (StatusEnum)loopService.GetNumberSelectedElement(false);
+            _task.Task.Status  = (StatusEnum)loopService.GetNumberSelectedElement(false);
 
-            _taskService.ChangeStatusInTask(_task);
+            _taskService.ChangeStatusInTask(_task.Task);
         }
     }
 }

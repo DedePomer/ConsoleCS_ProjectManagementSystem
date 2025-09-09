@@ -14,18 +14,18 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private readonly DefaultUser _user;
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
-        private readonly DefaultTask? _task;
+        private readonly TaskElement _task;
 
         private readonly TaskService _taskService;
 
         private Dictionary<IElement, RightsEnum> _elements = new Dictionary<IElement, RightsEnum>();
 
-        public TaskChangeStatusPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation, object? task)
+        public TaskChangeStatusPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation, object task)
         {
             _user = user;
             _connectionFactory = connectionFactory;
             _navigation = navigation;
-            _task = task as DefaultTask;
+            _task = task as TaskElement;
 
             _taskService = new TaskService(new TaskRepository(_connectionFactory));
 
@@ -37,11 +37,6 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void Open()
         {
-            if (_task == default)
-            {
-                ShowException("Не смогла передаться задача");
-                _navigation.Back();
-            }
             ChangeStatus();
             _navigation.Back();
         }
