@@ -4,6 +4,7 @@ using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
@@ -17,7 +18,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private readonly TaskService _taskService;
 
-        private List<string> _elements = new List<string>();
+        private Dictionary<IElement, RightsEnum> _elements = new Dictionary<IElement, RightsEnum>();
 
         public TaskChangeStatusPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation, object? task)
         {

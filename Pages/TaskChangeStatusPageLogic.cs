@@ -1,6 +1,7 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
@@ -10,16 +11,21 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         {
             foreach (StatusEnum status in Enum.GetValues(typeof(StatusEnum)))
             {
-                _elements.Add(status.GetDescription());
+                _elements.Add(new MenuElement()
+                {
+                    Name = status.GetDescription(),
+                },RightsEnum.None);
             }
         }
 
         private void ChangeStatus()
         {
-            ShowDisplayElements(_elements);
+            IEnumerable<IElement> showElements = CreateShowList(_elements, _user);
+
+            ShowDisplayElements(showElements);
 
             NavigationLoopService loopService = new NavigationLoopService
-                (_elements, GetCountStrokeInTitle());
+                (showElements, GetCountStrokeInTitle());
 
             _task.Status  = (StatusEnum)loopService.GetNumberSelectedElement(false);
 
