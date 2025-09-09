@@ -9,12 +9,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
     {
         private string _userTitle = string.Empty;
 
-        public const int EXCEPTION_DELAY = 2500;
-        public const ConsoleColor EXCEPTION_COLOR = ConsoleColor.Red;
-        public const ConsoleColor DEFAULT_COLOR = ConsoleColor.White;
-        public const string EXCEPTION_TEXT = "Ошибка";
-        public const string INPUT_SPLITTER = ": ";
-        public const string STANDART_TITLE = """
+        protected const int EXCEPTION_DELAY = 2500;
+        protected const ConsoleColor EXCEPTION_COLOR = ConsoleColor.Red;
+        protected const ConsoleColor DEFAULT_COLOR = ConsoleColor.White;
+        protected const string EXCEPTION_TEXT = "Ошибка";
+        protected const string INPUT_SPLITTER = ": ";
+        protected const string STANDART_TITLE = """
             Управление:
             стрелки вниз, вверх - выбор элемента меню
             стрелка в лево - вернутся на прошлую страницу
@@ -23,7 +23,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
             """;
 
 
-        public virtual void ShowDisplayElements(IEnumerable<IElement> elements, string title = STANDART_TITLE)
+        protected virtual void ShowDisplayElements(IEnumerable<IElement> elements, string title = STANDART_TITLE)
         {
             ShowTitle(title);
 
@@ -33,7 +33,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
             }
         }
 
-        public virtual void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
+        protected virtual void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
             Console.CursorVisible = true;
 
@@ -48,7 +48,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
             Console.CursorVisible = false;
         }
 
-        public virtual void ShowException(string? text = EXCEPTION_TEXT)
+        protected virtual void ShowException(string? text = EXCEPTION_TEXT)
         {
             Console.Clear();
 
@@ -61,12 +61,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
             Console.Clear();
         }
 
-        public int GetCountStrokeInTitle()
+        protected int GetCountStrokeInTitle()
         {
             return _userTitle.Where(x => x == '\n').Count() + 1;
         }
 
-        public void ShowTitle(string title = STANDART_TITLE)
+        protected void ShowTitle(string title = STANDART_TITLE)
         {
             Console.Clear();
 
@@ -78,10 +78,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 
 
 
-        public List<IElement> CreateShowList(Dictionary<IElement, RightsEnum> elements, DefaultUser user)
+        protected List<IElement> CreateShowList(Dictionary<IElement, RightsEnum> elements, DefaultUser user)
         {
             return elements
-                .Where(x => user.UserHasRights(x.Value))
+                .Where(x => user.HasRight(x.Value))
                 .Select(x => x.Key)
                 .ToList();
         }

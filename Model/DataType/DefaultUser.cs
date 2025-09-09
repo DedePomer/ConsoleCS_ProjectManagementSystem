@@ -9,7 +9,7 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
         public string Password { get; set; }
         public DefaultRole Role { get; set; }
 
-        public bool UserHasRights(RightsEnum right)
+        public bool HasRight(RightsEnum right)
         {
             return (Role.Rights & right) == right;
         }

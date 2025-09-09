@@ -19,15 +19,18 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Enums
     {
         public static string GetDescription(this StatusEnum value)
         {
-            FieldInfo fi = value.GetType().GetField(value.ToString());
+            string valueText = value.ToString();
+            FieldInfo? fieldInfo = value
+                .GetType()
+                .GetField(valueText);
 
-            DescriptionAttribute[] attributes =
-                (DescriptionAttribute[])fi.GetCustomAttributes(
-                typeof(DescriptionAttribute),
-                false);
+            if (fieldInfo == null)           
+                return value.ToString();
+            
+            DescriptionAttribute[]? attributes = fieldInfo
+                .GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
 
-            if (attributes != null &&
-                attributes.Length > 0)
+            if (attributes != null && attributes.Length > 0)
                 return attributes[0].Description;
             else
                 return value.ToString();

@@ -25,7 +25,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             List<DefaultTask> tasks = _taskService
                 .GetTasks()
-                .Where(x => x.User.Id == _user.Id || _user.UserHasRights(RightsEnum.ViewAllTask))
+                .Where(x => x.User.Id == _user.Id || _user.HasRight(RightsEnum.ViewAllTask))
                 .ToList();
 
             foreach (var task in tasks)
@@ -49,11 +49,11 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void OpenDefault(object? obj)
         {
-            if (_user.UserHasRights(RightsEnum.ChangeStatus))
+            if (_user.HasRight(RightsEnum.ChangeStatus))
             {
                 _navigation.Open(new TaskChangeStatusPage(_user, _connectionFactory, _navigation, obj));
             }
-            if (_user.UserHasRights(RightsEnum.AssignTask))
+            else if (_user.HasRight(RightsEnum.AssignTask))
             {
                 _navigation.Open(new AssignTaskPage(_user, _connectionFactory, _navigation, obj));
             }
@@ -62,22 +62,21 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         #endregion
 
-        private (ConsoleKey pressedKey, IElement selectedItem) GetNumberSelectedElement()
+        private (ConsoleKey pressedKey, IElement? selectedItem) GetNumberSelectedElement()
         {
             ConsoleKey pressedKey = ConsoleKey.Enter;
-            IElement selectedItem = default;
+            IElement? selectedItem = null;
 
-            IEnumerable<IElement> showElements = CreateShowList(_elements, _user);
+            List<IElement> showElements = CreateShowList(_elements, _user);
 
-            if (showElements.Count() != 0)
+            if (showElements.Count != 0)
             {
-
                 ShowDisplayElements(showElements);
 
-                NavigationLoopService loopService = new NavigationLoopService
-                    (showElements, GetCountStrokeInTitle());
+                NavigationLoopService loopService = new NavigationLoopService(showElements, GetCountStrokeInTitle());
 
-                selectedItem = showElements.ToList()[loopService.GetNumberSelectedElement(true)];
+                int numberSelectElement = loopService.GetNumberSelectedElement(true);
+                selectedItem = showElements.ToList()[numberSelectElement];
                 pressedKey = loopService.PressedKey;
 
             }

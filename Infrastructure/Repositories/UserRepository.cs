@@ -24,7 +24,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 FROM Users
                 WHERE name = @Login AND password = @Password)
                 
-                """, new { Login = login, Password = HashService.GetHash(password) }));
+                """, new { Login = login, Password = HashHelper.GetHash(password) }));
 
             return isUserExist;
         }
@@ -88,7 +88,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 INSERT INTO Users (name,password,roleid)
                 VALUES (@Name, @Pasword, @Role);
 
-                """, new { Name = user.Name, Pasword = HashService.GetHash(user.Password), Role = user.Role.Id }));
+                """, new { Name = user.Name, Pasword = HashHelper.GetHash(user.Password), Role = user.Role.Id }));
         }
 
 

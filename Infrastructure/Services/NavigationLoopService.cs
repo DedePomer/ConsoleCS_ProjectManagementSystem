@@ -1,10 +1,11 @@
-﻿using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
+﻿using System.Collections.Immutable;
+using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
     public class NavigationLoopService
     {
-        private readonly List<IElement> _elemments;
+        private readonly ImmutableList<IElement> _elements;
         private readonly int _cursorPosition;
 
         private ConsoleColor _defaultColor = Console.ForegroundColor;
@@ -12,19 +13,19 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 
         public ConsoleKey PressedKey { get; private set; }
 
-        public NavigationLoopService(IEnumerable<IElement> elemments, int cursorPosition)
+        public NavigationLoopService(IEnumerable<IElement> elements, int cursorPosition)
         {
-            _elemments = elemments.ToList();
+            _elements = elements.ToImmutableList();
             _cursorPosition = cursorPosition;
         }
 
         private void HighlightElement(int correntCursorPosition, int pastCursorPosition)
         {
             Console.SetCursorPosition(0, pastCursorPosition);
-            Console.WriteLine(_elemments[pastCursorPosition - _cursorPosition].Name);
+            Console.WriteLine(_elements[pastCursorPosition - _cursorPosition].Name);
             Console.SetCursorPosition(0, correntCursorPosition);
             Console.ForegroundColor = _highlightColor;
-            Console.WriteLine(_elemments[correntCursorPosition - _cursorPosition].Name);
+            Console.WriteLine(_elements[correntCursorPosition - _cursorPosition].Name);
             Console.ForegroundColor = _defaultColor;
             Console.CursorTop = correntCursorPosition;
         }
@@ -34,8 +35,9 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         {
             ConsoleKey key;
 
-            while ((key = Console.ReadKey(true).Key) != ConsoleKey.Enter)
+            do
             {
+                key = Console.ReadKey(true).Key;
                 if (key == ConsoleKey.UpArrow)
                 {
                     if (topCursorPosition > _cursorPosition)
@@ -56,7 +58,8 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
                 {
                     return key;
                 }
-            }
+            } 
+            while (key != ConsoleKey.Enter);
 
             return key;
         }
@@ -64,7 +67,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         public int GetNumberSelectedElement(bool ReadKey)
         {
             int topCursorPosition = _cursorPosition;
-            int downCursorPosition = _elemments.Count() + _cursorPosition;
+            int downCursorPosition = _elements.Count() + _cursorPosition;
 
             if (topCursorPosition != downCursorPosition)
             {

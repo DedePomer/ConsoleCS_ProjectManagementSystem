@@ -8,6 +8,5 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
         public string Name { get; set; }
         public Action<object?> Execute { get; set; }
         public DefaultUser User { get; set; }
-
     }
 }

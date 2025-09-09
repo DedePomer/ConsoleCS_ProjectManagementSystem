@@ -89,7 +89,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase
                 VALUES  
                 (1,'admin', @Password, 1)            
                 
-                """, new { Password = HashService.GetHash(adminPassword) }));
+                """, new { Password = HashHelper.GetHash(adminPassword) }));
             }
 
         }

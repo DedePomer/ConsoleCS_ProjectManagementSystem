@@ -3,7 +3,7 @@ using System.Text;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
-    public static class HashService
+    public static class HashHelper
     {
         public static byte[] GetHash(string text)
         {

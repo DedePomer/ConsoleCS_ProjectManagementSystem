@@ -71,7 +71,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             return password;
         }
 
-        public override void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
+        protected override void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
             Console.CursorVisible = true;
             ShowTitle(title);
