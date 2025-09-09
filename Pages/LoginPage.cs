@@ -9,6 +9,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 {
     public partial class LoginPage : BasePage
     {
+        private const string LOGIN_VIEW_TEXT = "Логин";
+        private const string PASSWOR_VIEW_TEXT = "Пароль";
+
         private DefaultUser _user;
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
@@ -34,7 +37,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         {
             InputChek();
 
-            _user = _userDataService.GetUser(_elements["Логин"], _elements["Пароль"]);
+            _user = _userDataService.GetUser(_elements[LOGIN_VIEW_TEXT], _elements[PASSWOR_VIEW_TEXT]);
 
             _navigation.Open(new MainMenuPage(_user, _connectionFactory, _navigation));
         }
@@ -70,6 +73,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         public override void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
+            Console.CursorVisible = true;
             Console.Clear();
 
             Console.WriteLine(title);
@@ -87,6 +91,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                     elements[element.Key] = Console.ReadLine() ?? string.Empty;
                 }
             }
+
+            Console.CursorVisible = false;
         }
         #endregion
     }

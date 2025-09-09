@@ -37,6 +37,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 
         public virtual void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
+            Console.CursorVisible = true;
             Console.Clear();
 
             _userTitle = title;
@@ -48,6 +49,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
                 Console.Write(element.Key + INPUT_SPLITTER);
                 elements[element.Key] = Console.ReadLine() ?? string.Empty;
             }
+
+            Console.CursorVisible = false;
         }
 
         public virtual void ShowException(string? text = EXCEPTION_TEXT)
