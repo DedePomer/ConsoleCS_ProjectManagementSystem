@@ -35,12 +35,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             while (true)
             {
-                int roleId = GetSelectedItem(showElements);
+                int selectedItemIndex = GetSelectedItemIndex(showElements);
 
                 DefaultUser newUser = new DefaultUser();
                 newUser.Name = _elements[LOGIN_VIEW_TEXT];
                 newUser.Password = _elements[PASSWOR_VIEW_TEXT];
-                newUser.Role = (showElements.ToList()[roleId] as RoleElement).Role;
+                newUser.Role = (showElements.ToList()[selectedItemIndex] as RoleElement).Role;
 
                 if (!_userCreationService.UserAuthentication(newUser.Name, newUser.Password))
                 {
@@ -49,12 +49,12 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 }
                 else
                 {
-                    ShowException("Такой пользователь существует");
+                    ShowException("Такой пользователь уже существует");
                 }
             }
         }
 
-        private int GetSelectedItem(IEnumerable<IElement> showElements)
+        private int GetSelectedItemIndex(IEnumerable<IElement> showElements)
         {
             ShowDisplayElements(showElements, "Выберите роль нового пользователя\n");
             NavigationLoopService loopService = new NavigationLoopService(showElements, GetCountStrokeInTitle());

@@ -61,7 +61,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
             return key;
         }
 
-        public int GetNumberSelectedElement(bool ReadLeftArrow)
+        public int GetNumberSelectedElement(bool ReadKey)
         {
             int topCursorPosition = _cursorPosition;
             int downCursorPosition = _elemments.Count() + _cursorPosition;
@@ -70,7 +70,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 
             HighlightElement(topCursorPosition, topCursorPosition);
 
-            PressedKey = GetPressedKey(ref topCursorPosition, downCursorPosition, ReadLeftArrow);
+            PressedKey = GetPressedKey(ref topCursorPosition, downCursorPosition, ReadKey);
 
             return topCursorPosition - _cursorPosition;
         }

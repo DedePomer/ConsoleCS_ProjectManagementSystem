@@ -1,4 +1,6 @@
-﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+﻿using System.Xml.Linq;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages.Base
@@ -23,11 +25,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
 
         public virtual void ShowDisplayElements(IEnumerable<IElement> elements, string title = STANDART_TITLE)
         {
-            Console.Clear();
-
-            _userTitle = title;
-
-            Console.WriteLine(title);
+            ShowTitle(title);
 
             foreach (var element in elements)
             {
@@ -38,11 +36,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
         public virtual void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
             Console.CursorVisible = true;
-            Console.Clear();
 
-            _userTitle = title;
-
-            Console.WriteLine(title);
+            ShowTitle(title);
 
             foreach (var element in elements)
             {
@@ -62,7 +57,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
             Console.ForegroundColor = DEFAULT_COLOR;
 
             ConsoleKey key;
-            while ((key = Console.ReadKey(true).Key) != ConsoleKey.Enter) {}
+            while ((key = Console.ReadKey(true).Key) != ConsoleKey.Enter) { }
             Console.Clear();
         }
 
@@ -71,6 +66,24 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
             return _userTitle.Where(x => x == '\n').Count() + 1;
         }
 
+        public void ShowTitle(string title = STANDART_TITLE)
+        {
+            Console.Clear();
+
+            _userTitle = title;
+
+            Console.WriteLine(title);
+        }
+
+
+
+
+        public IEnumerable<IElement> CreateShowList(Dictionary<IElement, RightsEnum> elements, DefaultUser user)
+        {
+            return elements
+                .Where(x => user.UserHasRights(x.Value))
+                .Select(x => x.Key);
+        }
         public abstract void Open();
         public abstract void FillDictionary();
     }

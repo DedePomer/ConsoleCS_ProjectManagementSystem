@@ -74,9 +74,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         public override void ShowElementsForInputs(Dictionary<string, string> elements, string title = STANDART_TITLE)
         {
             Console.CursorVisible = true;
-            Console.Clear();
-
-            Console.WriteLine(title);
+            ShowTitle(title);
 
             foreach (var element in elements)
             {

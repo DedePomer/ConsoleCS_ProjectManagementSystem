@@ -10,7 +10,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
     {
         public override void FillDictionary()
         {
-            _elements = new Dictionary<MenuElement, RightsEnum>()
+            _elements = new Dictionary<IElement, RightsEnum>()
             {
                 [ new MenuElement(){
                     Id = 0,
@@ -57,10 +57,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             ConsoleKey pressedKey;
             IElement selectedItem;
 
-            IEnumerable<IElement> showElements = _elements
-                .Where(x => _user.UserHasRights(x.Value))
-                .Select(x => x.Key)
-                .ToList();
+            IEnumerable<IElement> showElements = CreateShowList(_elements, _user);
 
             ShowDisplayElements(showElements, title);
 

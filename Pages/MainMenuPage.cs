@@ -2,6 +2,7 @@
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
@@ -12,7 +13,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
 
-        private Dictionary<MenuElement, RightsEnum> _elements = new Dictionary<MenuElement, RightsEnum>();
+        private Dictionary<IElement, RightsEnum> _elements = new Dictionary<IElement, RightsEnum>();
 
         public MainMenuPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation)
         {
