@@ -37,7 +37,6 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                     Execute = OpenDefault,
                     Task = task,
                 }, RightsEnum.None);
-                (_elements.Last().Key as TaskElement).SetTaskName(task);
             }
         }
 

@@ -5,20 +5,27 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
 {
     public class TaskElement : IElement
     {
-        private const string NAME_SPLITTER = " | ";
+        private string _name;
 
 
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name 
+        {
+            get
+            {
+                string splitter = "|"; 
+                if (_name == default)
+                {
+                    return Task.Name + splitter + Task.Description;
+                }
+                return _name;
+            }
+            set
+            {
+                _name = value;
+            }
+        }
         public Action<object?> Execute { get; set; }
         public DefaultTask Task { get; set; }
-
-
-
-        public string SetTaskName(DefaultTask task)
-        {
-            return Name = task.Name + NAME_SPLITTER + task.Description + NAME_SPLITTER + task.Status?.GetDescription();
-        }
-
     }
 }
