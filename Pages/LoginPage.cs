@@ -12,7 +12,6 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private const string PASSWOR_VIEW_TEXT = "Пароль";
 
         private DefaultUser _user;
-        private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
         private readonly UserService _userService;
         private readonly TaskService _taskService;

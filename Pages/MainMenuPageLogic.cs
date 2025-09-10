@@ -40,7 +40,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void OpenTaskViewer(object? obj)
         {
-            _navigation.Open(new TaskViewPage(_user, _connectionFactory, _navigation));
+            _navigation.Open(new TaskViewPage(_user, _navigation, _userService, _taskService, _roleService));
         }
 
         private void OpenAddUser(object? obj)
