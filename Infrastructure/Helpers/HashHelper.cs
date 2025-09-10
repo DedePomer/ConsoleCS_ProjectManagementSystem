@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
+namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Helpers
 {
     public static class HashHelper
     {

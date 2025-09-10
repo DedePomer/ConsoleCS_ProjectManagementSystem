@@ -1,5 +1,7 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Model.DataType.Base;
 using Dapper;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
@@ -12,7 +14,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             _connection = connection;
         }
 
-        public bool IsTaskExist(DefaultTask task)
+        public bool IsTaskExistByName(string name)
         {
             using var connection = _connection.CreateConnection();
 
@@ -23,12 +25,12 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 FROM Tasks
                 WHERE name = @Name)
                 
-                """, new { Name = task.Name }));
+                """, new { Name = name }));
 
             return isTaskExist;
         }
 
-        public void CreateTask(DefaultTask task)
+        public void CreateTask(BaseTask task)
         {
             using var connection = _connection.CreateConnection();
 
@@ -37,11 +39,11 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 INSERT INTO Tasks (name,description,status,userId)
                 VALUES (@Name, @Description, @Status, @UserId);
 
-                """, new { Name = task.Name, Description = task.Description, Status = task.Status, UserId = task.User.Id }));
+                """, new { Name = task.Name, Description = task.Description, Status = task.Status, UserId = task.UserId }));
 
         }
 
-        public void ChangeStatusInTask(DefaultTask task)
+        public void ChangeStatusInTask(StatusEnum status, int id)
         {
             using var connection = _connection.CreateConnection();
 
@@ -51,11 +53,11 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 SET status = @Status
                 WHERE id = @Id;
 
-                """, new { Id = task.Id, Status = task.Status }));
+                """, new { Id = id, Status = status }));
 
         }
 
-        public void ChangeUserIdInTask(DefaultTask task)
+        public void ChangeUserIdInTask(int userId, int id)
         {
             using var connection = _connection.CreateConnection();
 
@@ -65,32 +67,20 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 SET userId = @UserId
                 WHERE id = @Id;
 
-                """, new { Id = task.Id, UserId = task.User.Id }));
+                """, new { Id = id, UserId = userId }));
 
         }
 
-        public IEnumerable<DefaultTask> GetTasks()
+        public IEnumerable<BaseTask> GetTasks()
         {
             using var connection = _connection.CreateConnection();
 
-            IEnumerable<DefaultTask> tasks = connection.Query<DefaultTask, DefaultUser, DefaultTask>("""
+            IEnumerable<BaseTask> tasks = connection.Query<BaseTask>("""
 
-                SELECT 
-                t.id as id,
-                t.name as name,
-                t.description as description,
-                t.status as status,
-                u.id as id,
-                u.name as name
-                FROM Tasks t
-                INNER JOIN Users u ON t.userId = u.id
+                SELECT id, name, description, status, userId
+                FROM Roles
 
-                """, (task, user) =>
-                {
-                    task.User = user;
-                    return task;
-                }
-                , splitOn: "id") ?? throw new ArgumentNullException(nameof(tasks));
+                """) ?? throw new ArgumentNullException(nameof(tasks));
 
             return tasks;
         }

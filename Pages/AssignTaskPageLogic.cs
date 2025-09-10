@@ -32,7 +32,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             NavigationLoopService loopService = new NavigationLoopService(showElements, GetCountStrokeInTitle());
             if (showElements.Count > 0)
             {
-                return (showElements[loopService.GetNumberSelectedElement(false)] as UserElement).User.Id;
+                int index = loopService.GetNumberSelectedElement(false);
+                return (showElements[index] as UserElement).User.Id ?? default;
             }
             return 0;
         }
@@ -48,7 +49,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 {
                     _task.Task.User.Id = selectedUserId;
 
-                    if (_taskService.IsTaskExist(_task.Task))
+                    if (_taskService.IsTaskExistByName(_task.Task))
                     {
                         _taskService.ChangeUserIdInTask(_task.Task);
                         break;

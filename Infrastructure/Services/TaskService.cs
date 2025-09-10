@@ -1,40 +1,71 @@
-﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Model.DataType.Base;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
     public class TaskService
     {
         private readonly TaskRepository _repository;
-        public TaskService(TaskRepository repository)
+        private readonly UserService _userService;
+        public TaskService(TaskRepository repository, UserService userService)
         {
             _repository = repository;
+            _userService = userService;
         }
 
-        public bool IsTaskExist(DefaultTask task)
+        public bool IsTaskExistByName(DefaultTask task)
         {
-            return _repository.IsTaskExist(task);
+            string name = task.Name ?? string.Empty;
+            return _repository.IsTaskExistByName(name);
         }
 
         public void CreateTask(DefaultTask task)
         {
-            _repository.CreateTask(task);
+            BaseTask baseTask = new BaseTask()
+            {
+                Id = 1,
+                Name = task.Name ?? string.Empty,
+                Description = task.Description ?? string.Empty,
+                Status = task.Status ?? StatusEnum.None,
+                UserId = task.User?.Id ?? 1
+            };
+
+            _repository.CreateTask(baseTask);
         }
 
         public IEnumerable<DefaultTask> GetTasks()
         {
-            return _repository.GetTasks();
+            List<BaseTask> baseTasks = _repository
+               .GetTasks()
+               .ToList();
+            List<DefaultTask> tasks = new();
+
+            foreach (BaseTask baseTask in baseTasks)
+            {
+                tasks.Add(new DefaultTask(baseTask));
+
+                int userId = baseTask.UserId;
+                tasks.Last().User = _userService.GetUserByUserId(userId);
+            }
+
+            return tasks;
         }
 
 
         public void ChangeStatusInTask(DefaultTask task)
-        { 
-            _repository.ChangeStatusInTask(task);
+        {
+            StatusEnum status = task.Status ?? StatusEnum.None;
+            int id = task.Id ?? 1;
+            _repository.ChangeStatusInTask(status, id);
         }
 
         public void ChangeUserIdInTask(DefaultTask task)
         {
-            _repository.ChangeUserIdInTask(task);
+            int userId = task.User?.Id ?? 1;
+            int id = task.Id ?? 1;
+            _repository.ChangeUserIdInTask(userId, id);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages;
@@ -52,6 +53,12 @@ namespace ConsoleCS_ProjectManagementSystem
             services.AddTransient<DbInitializer>();
             services.AddSingleton<DefaultUser>();
             services.AddSingleton<IPageNavigation, PageNavigationService>();
+            services.AddSingleton<RoleService>(); /*надобы использовать интерфейсы для сервисов и репозиториев*/
+            services.AddSingleton<TaskService>();
+            services.AddSingleton<UserService>();
+            services.AddSingleton<RoleRepository>();
+            services.AddSingleton<TaskRepository>();
+            services.AddSingleton<UserService>();
         }
 
         private static void AddDatabase(IServiceCollection services, IConfiguration configuration)

@@ -23,7 +23,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             newTaskElement.Task.Name = _inputElements[TASK_NAME_VIEW_TEXT];
             newTaskElement.Task.Description = _inputElements[TASK_DESCRIPTION_VIEW_TEXT];
             newTaskElement.Task.Status = StatusEnum.None;
-            _navigation.Open(new AssignTaskPage(_user, _connectionFactory, _navigation, newTaskElement),true);
+            _navigation.Open(new AssignTaskPage(_user, _navigation, _userService, _taskService, _roleService, newTaskElement), true);
         }
     }
 }

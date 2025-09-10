@@ -1,5 +1,6 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Model.DataType.Base;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
@@ -13,7 +14,27 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 
         public IEnumerable<DefaultRole> GetRoles()
         {
-            return _repository.GetRoles();
+            List<BaseRole> baseRoles = _repository
+                .GetRoles()
+                .ToList();
+            List<DefaultRole> roles = new();
+
+            foreach (BaseRole baseRole in baseRoles)
+            {
+                roles.Add(new DefaultRole(baseRole));
+            }
+
+            return roles;
+        }
+
+        public DefaultRole GetRoleByRoleId(int roleId)
+        {
+            return new DefaultRole(_repository.GetRoleByRoleId(roleId));
+        }
+
+        public DefaultRole GetRoleByUserName(string name)
+        {
+            return new DefaultRole(_repository.GetRoleByUserName(name));
         }
     }
 }

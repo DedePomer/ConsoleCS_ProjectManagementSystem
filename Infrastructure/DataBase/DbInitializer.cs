@@ -1,4 +1,4 @@
-﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Helpers;
 using Dapper;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase

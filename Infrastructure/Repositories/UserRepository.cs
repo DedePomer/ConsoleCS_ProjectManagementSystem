@@ -1,6 +1,6 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
-using ConsoleCS_ProjectManagementSystem.Model.DataType;
+using ConsoleCS_ProjectManagementSystem.Infrastructure.Helpers;
+using ConsoleCS_ProjectManagementSystem.Model.DataType.Base;
 using Dapper;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
@@ -29,24 +29,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             return isUserExist;
         }
 
-        public DefaultRole GetUserRole(string login)
-        {
-            using var connection = _connection.CreateConnection();
-
-            var role = connection.QuerySingleOrDefault<DefaultRole>(new CommandDefinition("""
-                
-                SELECT id, name, rights
-                FROM Roles
-                WHERE id = (SELECT roleid
-                FROM Users
-                WHERE name = @Login)
-                
-                """, new { Login = login }));
-
-            return role ?? throw new ArgumentNullException(nameof(role));
-        }
-
-        public int GetUserId(string login)
+        public int GetUserIdByUserName(string login)
         {
             using var connection = _connection.CreateConnection();
 
@@ -61,25 +44,21 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             return id;
         }
 
-        public IEnumerable<DefaultUser> GetUsers()
+        public IEnumerable<BaseUser> GetUsers()
         {
             using var connection = _connection.CreateConnection();
 
-            IEnumerable<DefaultUser> users = connection.Query<DefaultUser>("""
+            IEnumerable<BaseUser> users = connection.Query<BaseUser>("""
 
-                SELECT id, name
+                SELECT id, name, password, roleId
                 FROM Users
 
                 """) ?? throw new ArgumentNullException(nameof(users));
 
-            foreach (var user in users) 
-            {
-                user.Role = GetUserRole(user.Name);
-            }
             return users;
         }
 
-        public void CreateUser(DefaultUser user)
+        public void CreateUser(BaseUser user)
         {
             using var connection = _connection.CreateConnection();
 
@@ -88,10 +67,23 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 INSERT INTO Users (name,password,roleid)
                 VALUES (@Name, @Pasword, @Role);
 
-                """, new { Name = user.Name, Pasword = HashHelper.GetHash(user.Password), Role = user.Role.Id }));
+                """, new { Name = user.Name, Pasword = user.Password, Role = user.RoleId }));
         }
 
+        public BaseUser GetUserByUserId(int userId)
+        {
+            using var connection = _connection.CreateConnection();
 
+            BaseUser user = connection.QuerySingleOrDefault<BaseUser>(new CommandDefinition("""
+                
+                SELECT id, name, password, roleId
+                FROM Users
+                WHERE id = @UserId
+                
+                """, new { UserId = userId })) ?? throw new ArgumentNullException(nameof(user));
+
+            return user;
+        }
     }
 
 

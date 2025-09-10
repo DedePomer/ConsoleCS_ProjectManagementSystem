@@ -25,7 +25,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             List<DefaultTask> tasks = _taskService
                 .GetTasks()
-                .Where(x => x.User.Id == _user.Id || _user.HasRight(RightsEnum.ViewAllTask))
+                .Where(x => x.User?.Id == _user.Id || _user.HasRight(RightsEnum.ViewAllTask))
                 .ToList();
 
             foreach (var task in tasks)
@@ -44,18 +44,18 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         #region Commands
         private void OpenAddTask(object? obj)
         {
-            _navigation.Open(new AddTaskPage(_user, _connectionFactory, _navigation));
+            _navigation.Open(new AddTaskPage(_user, _navigation, _userService, _taskService, _roleService));
         }
 
         private void OpenDefault(object? obj)
         {
             if (_user.HasRight(RightsEnum.ChangeStatus))
             {
-                _navigation.Open(new TaskChangeStatusPage(_user, _connectionFactory, _navigation, obj));
+                _navigation.Open(new TaskChangeStatusPage(_user, _navigation, _userService, _taskService, _roleService, obj));
             }
             else if (_user.HasRight(RightsEnum.AssignTask))
             {
-                _navigation.Open(new AssignTaskPage(_user, _connectionFactory, _navigation, obj));
+                _navigation.Open(new AssignTaskPage(_user, _navigation, _userService, _taskService, _roleService, obj));
             }
             _navigation.Back();
         }

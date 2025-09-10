@@ -22,10 +22,10 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces
         public void Open(BasePage nextPage);
 
         /// <summary>
-        /// Метод открывает класс реализующий BasePage. Нельзя использовать в первом окне программы.
+        /// Метод открывает класс реализующий BasePage и удаляет последний открытый Page. Нельзя использовать в первом окне программы.
         /// </summary>
         /// <param name="nextPage"></param>
-        /// <param name="deleteLast"></param>
+        /// <param name="deleteLast">если true удаляет последний открытый Page</param>
         public void Open(BasePage nextPage, bool deleteLast);
     }
 }

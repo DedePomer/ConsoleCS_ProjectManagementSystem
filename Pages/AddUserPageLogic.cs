@@ -12,7 +12,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
             _inputElements.Add(LOGIN_VIEW_TEXT, "");
             _inputElements.Add(PASSWOR_VIEW_TEXT, "");
 
-            List<DefaultRole> defaultRoles = _roleCreationService
+            List<DefaultRole> defaultRoles = _roleService
                 .GetRoles()
                 .ToList();
 
@@ -39,9 +39,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
                 newUser.Password = _inputElements[PASSWOR_VIEW_TEXT];
                 newUser.Role = (showElements.ToList()[selectedItemIndex] as RoleElement).Role;
 
-                if (!_userCreationService.UserAuthentication(newUser.Name, newUser.Password))
+                if (!_userService.UserAuthentication(newUser.Name, newUser.Password))
                 {
-                    _userCreationService.CreateUser(newUser);
+                    _userService.CreateUser(newUser);
                     break;
                 }
                 else

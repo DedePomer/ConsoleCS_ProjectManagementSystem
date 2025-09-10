@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
@@ -12,7 +11,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         {
             _elements = new Dictionary<IElement, RightsEnum>()
             {
-                [ new MenuElement(){
+                [new MenuElement()
+                {
                     Id = 0,
                     Name = "Добавить пользователя",
                     Execute = OpenAddUser
@@ -45,7 +45,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private void OpenAddUser(object? obj)
         {
-            _navigation.Open(new AddUserPage(_user, _connectionFactory, _navigation));
+            _navigation.Open(new AddUserPage(_user, _navigation, _userService, _taskService, _roleService));
         }
         #endregion
 

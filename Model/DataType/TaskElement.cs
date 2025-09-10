@@ -17,7 +17,7 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
 
         public string SetTaskName(DefaultTask task)
         {
-            return Name = task.Name + NAME_SPLITTER + task.Description + NAME_SPLITTER + task.Status.GetDescription();
+            return Name = task.Name + NAME_SPLITTER + task.Description + NAME_SPLITTER + task.Status?.GetDescription();
         }
 
     }

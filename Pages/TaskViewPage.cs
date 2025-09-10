@@ -1,7 +1,5 @@
-﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
@@ -12,20 +10,21 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
     public partial class TaskViewPage : BasePage
     {
         private readonly DefaultUser _user;
-        private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
-
+        private readonly UserService _userService;
         private readonly TaskService _taskService;
+        private readonly RoleService _roleService;
 
         private Dictionary<IElement, RightsEnum> _elements = new Dictionary<IElement, RightsEnum>();
 
-        public TaskViewPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation)
+        public TaskViewPage(DefaultUser user, IPageNavigation navigation,
+            UserService userService, TaskService taskService, RoleService roleService)
         {
             _user = user;
-            _connectionFactory = connectionFactory;
             _navigation = navigation;
-
-            _taskService = new TaskService(new TaskRepository(_connectionFactory));
+            _userService = userService;
+            _taskService = taskService;
+            _roleService = roleService;
 
             _navigation.Add(this);
         }

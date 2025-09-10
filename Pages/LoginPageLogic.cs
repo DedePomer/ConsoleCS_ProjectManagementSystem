@@ -13,7 +13,7 @@
             do
             {
                 ShowElementsForInputs(_inputElements);
-                if ((_userDataService.UserAuthentication(_inputElements[LOGIN_VIEW_TEXT], _inputElements[PASSWOR_VIEW_TEXT])))
+                if ((_userService.UserAuthentication(_inputElements[LOGIN_VIEW_TEXT], _inputElements[PASSWOR_VIEW_TEXT])))
                     break;
                 else
                     ShowException();

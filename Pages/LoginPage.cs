@@ -1,6 +1,5 @@
 ﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.DataBase;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
@@ -15,18 +14,21 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private DefaultUser _user;
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly IPageNavigation _navigation;
-
-        private readonly UserService _userDataService;
+        private readonly UserService _userService;
+        private readonly TaskService _taskService;
+        private readonly RoleService _roleService;
 
         private Dictionary<string, string> _inputElements = new Dictionary<string, string>();
 
 
-        public LoginPage(DefaultUser user, IDbConnectionFactory connectionFactory, IPageNavigation navigation)
+        public LoginPage(DefaultUser user, IPageNavigation navigation,
+            UserService userService, TaskService taskService, RoleService roleService)
         {
             _user = user;
-            _connectionFactory = connectionFactory;
             _navigation = navigation;
-            _userDataService = new UserService(new UserRepository(_connectionFactory));
+            _userService = userService;
+            _taskService = taskService;
+            _roleService = roleService;
 
             _navigation.Add(this);
 
@@ -37,9 +39,9 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         {
             InputChek();
 
-            _user = _userDataService.GetUser(_inputElements[LOGIN_VIEW_TEXT], _inputElements[PASSWOR_VIEW_TEXT]);
+            _user = _userService.GetDefaultUser(_inputElements[LOGIN_VIEW_TEXT], _inputElements[PASSWOR_VIEW_TEXT]);
 
-            _navigation.Open(new MainMenuPage(_user, _connectionFactory, _navigation));
+            _navigation.Open(new MainMenuPage(_user, _navigation, _userService, _taskService, _roleService));
         }
 
         #region override ShowElementsForInputs
