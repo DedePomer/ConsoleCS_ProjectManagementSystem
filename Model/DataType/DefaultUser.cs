@@ -19,7 +19,7 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
         }
         public bool HasRight(RightsEnum right)
         {
-            return (Role.Rights & right) == right;
+            return (Role?.Rights & right) == right;
         }
     }
 }
