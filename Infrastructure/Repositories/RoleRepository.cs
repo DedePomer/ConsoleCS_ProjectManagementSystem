@@ -26,7 +26,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             return roles;
         }
 
-        public BaseRole GetRoleByRoleId(int roleId)
+        public BaseRole GetRoleByRoleId(int userId)
         {
             using var connection = _connection.CreateConnection();
 
@@ -34,11 +34,9 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
                 
                 SELECT id, name, rights
                 FROM Roles
-                WHERE id = (SELECT roleid
-                FROM Users
-                WHERE roleid = @RoleId)
+                WHERE id = @RoleId
                 
-                """, new { RoleId = roleId })) ?? throw new ArgumentNullException(nameof(role));
+                """, new { RoleId = userId })) ?? throw new ArgumentNullException(nameof(role));
 
             return role;
         }

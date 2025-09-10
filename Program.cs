@@ -58,7 +58,7 @@ namespace ConsoleCS_ProjectManagementSystem
             services.AddSingleton<UserService>();
             services.AddSingleton<RoleRepository>();
             services.AddSingleton<TaskRepository>();
-            services.AddSingleton<UserService>();
+            services.AddSingleton<UserRepository>();
         }
 
         private static void AddDatabase(IServiceCollection services, IConfiguration configuration)

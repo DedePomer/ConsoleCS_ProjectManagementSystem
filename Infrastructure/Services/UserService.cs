@@ -43,7 +43,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
             foreach (BaseUser baseUser in baseUsers)
             {
                 users.Add(new DefaultUser(baseUser));
-                users.Last().Role = _roleService.GetRoleByRoleId(baseUser.Id);
+                users.Last().Role = _roleService.GetRoleByRoleId(baseUser.RoleId);
             }
 
             return users;
@@ -71,7 +71,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 
             DefaultUser defaultUser = new DefaultUser(baseUser);
             defaultUser.Role = _roleService
-                .GetRoleByRoleId(defaultUser.Id ?? 1);
+                .GetRoleByRoleId(defaultUser.Role?.Id ?? 1);
 
             return defaultUser;
         }

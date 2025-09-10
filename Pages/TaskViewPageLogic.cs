@@ -64,6 +64,8 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
         private (ConsoleKey pressedKey, IElement? selectedItem) GetNumberSelectedElement()
         {
+            string title  = $"{_user.Name} Выберите задачу\n";
+
             ConsoleKey pressedKey = ConsoleKey.Enter;
             IElement? selectedItem = null;
 
@@ -71,7 +73,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             if (showElements.Count != 0)
             {
-                ShowDisplayElements(showElements);
+                ShowDisplayElements(showElements, title);
 
                 NavigationLoopService loopService = new NavigationLoopService(showElements, GetCountStrokeInTitle());
 

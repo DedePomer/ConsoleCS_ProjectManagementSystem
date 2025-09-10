@@ -32,6 +32,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         public override void Open()
         {
             FillDictionary();
+
             var info = GetNumberSelectedElement();
             if (info.pressedKey == ConsoleKey.LeftArrow)
             {

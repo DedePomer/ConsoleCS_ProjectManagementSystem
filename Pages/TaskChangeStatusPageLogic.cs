@@ -9,25 +9,34 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
     {
         public override void FillDictionary()
         {
-            foreach (StatusEnum status in Enum.GetValues(typeof(StatusEnum)))
+            var myStatuses = Enum.GetValues(typeof(StatusEnum));
+            foreach (StatusEnum status in myStatuses)
             {
-                _elements.Add(new MenuElement()
+                if (status != StatusEnum.None)
                 {
-                    Name = status.GetDescription(),
-                },RightsEnum.None);
+                    _elements.Add(new StatusElement()
+                    {
+                        Name = status.GetDescription(),
+                        Status = status,
+                    }, RightsEnum.None);
+                }              
             }
         }
 
         private void ChangeStatus()
         {
+            string title = $"{_user.Name} Поменяйте статус\n";
+
             IEnumerable<IElement> showElements = CreateShowList(_elements, _user);
 
-            ShowDisplayElements(showElements);
+            ShowDisplayElements(showElements, title);
 
             NavigationLoopService loopService = new NavigationLoopService
                 (showElements, GetCountStrokeInTitle());
 
-            _task.Task.Status  = (StatusEnum)loopService.GetNumberSelectedElement(false);
+            int selectedIndex = loopService.GetNumberSelectedElement(false);
+
+            _task.Task.Status  = (showElements.ToList()[selectedIndex] as StatusElement).Status;
 
             _taskService.ChangeStatusInTask(_task.Task);
         }

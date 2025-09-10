@@ -78,7 +78,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Repositories
             IEnumerable<BaseTask> tasks = connection.Query<BaseTask>("""
 
                 SELECT id, name, description, status, userId
-                FROM Roles
+                FROM Tasks
 
                 """) ?? throw new ArgumentNullException(nameof(tasks));
 
