@@ -16,7 +16,7 @@ namespace ConsoleCS_ProjectManagementSystem.Model.DataType
                 string splitter = "|"; 
                 if (_name == default)
                 {
-                    return Task.Name + splitter + Task.Description;
+                    return Task.Name + splitter + Task.Description + splitter + Task.Status;
                 }
                 return _name;
             }

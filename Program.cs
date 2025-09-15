@@ -24,6 +24,7 @@ namespace ConsoleCS_ProjectManagementSystem
 
             var logPath = builder.Configuration["LogPath"];
             ArgumentNullException.ThrowIfNullOrEmpty(logPath, nameof(logPath));
+            
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.File(logPath)
@@ -41,9 +42,10 @@ namespace ConsoleCS_ProjectManagementSystem
             var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
             dbInitializer.Initialize();
             var loginPage = app.Services.GetRequiredService<LoginPage>();
+            
             loginPage.Open();
-
             app.Run();
+
         }
 
 
