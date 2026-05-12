@@ -1,5 +1,5 @@
-﻿using System.Collections.Immutable;
-using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
+﻿using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
+using System.Collections.Immutable;
 
 namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
 {
@@ -7,6 +7,7 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
     {
         private readonly ImmutableList<IElement> _elements;
         private readonly int _cursorPosition;
+
 
         private ConsoleColor _defaultColor = Console.ForegroundColor;
         private ConsoleColor _highlightColor = ConsoleColor.Green;
@@ -18,6 +19,27 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
             _elements = elements.ToImmutableList();
             _cursorPosition = cursorPosition;
         }
+
+        public int GetNumberSelectedElement(bool ReadKey)
+        {
+            int topCursorPosition = _cursorPosition;
+            int downCursorPosition = _elements.Count() + _cursorPosition;
+
+            int _windowHeight = Console.WindowHeight;
+            int _bufferHeight = Console.BufferHeight;
+
+            if (topCursorPosition != downCursorPosition)
+            {
+                Console.SetCursorPosition(0, _cursorPosition);
+
+                HighlightElement(topCursorPosition, topCursorPosition);
+
+                PressedKey = GetPressedKey(ref topCursorPosition, downCursorPosition, ReadKey);
+            }
+            return topCursorPosition - _cursorPosition;
+        }
+
+
 
         private void HighlightElement(int correntCursorPosition, int pastCursorPosition)
         {
@@ -58,27 +80,14 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
                 {
                     return key;
                 }
-            } 
+            }
             while (key != ConsoleKey.Enter);
 
             return key;
         }
 
-        public int GetNumberSelectedElement(bool ReadKey)
-        {
-            int topCursorPosition = _cursorPosition;
-            int downCursorPosition = _elements.Count() + _cursorPosition;
-
-            if (topCursorPosition != downCursorPosition)
-            {
-                Console.CursorTop = _cursorPosition;
-
-                HighlightElement(topCursorPosition, topCursorPosition);
-
-                PressedKey = GetPressedKey(ref topCursorPosition, downCursorPosition, ReadKey);               
-            }
-            return topCursorPosition - _cursorPosition;
-        }
-
     }
 }
+
+
+

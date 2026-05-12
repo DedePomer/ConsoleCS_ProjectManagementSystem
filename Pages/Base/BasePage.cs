@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
+﻿using ConsoleCS_ProjectManagementSystem.Infrastructure.Enums;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Model.Interfaces;
 
@@ -27,9 +26,14 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
         {
             ShowTitle(title);
 
+            int windowHeght = Console.WindowHeight - GetCountStrokeInTitle();
+
             foreach (var element in elements)
             {
+                if (windowHeght == 1)
+                    break;
                 Console.WriteLine($"{element.Name}");
+                windowHeght--;
             }
         }
 
@@ -38,6 +42,7 @@ namespace ConsoleCS_ProjectManagementSystem.Pages.Base
             Console.CursorVisible = true;
 
             ShowTitle(title);
+
 
             foreach (var element in elements)
             {

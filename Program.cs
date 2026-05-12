@@ -19,7 +19,6 @@ namespace ConsoleCS_ProjectManagementSystem
         {
             Console.CursorVisible = false;
 
-
             var builder = Host.CreateApplicationBuilder(args);
 
             var logPath = builder.Configuration["LogPath"];

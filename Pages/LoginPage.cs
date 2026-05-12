@@ -3,6 +3,7 @@ using ConsoleCS_ProjectManagementSystem.Infrastructure.Interfaces;
 using ConsoleCS_ProjectManagementSystem.Infrastructure.Services;
 using ConsoleCS_ProjectManagementSystem.Model.DataType;
 using ConsoleCS_ProjectManagementSystem.Pages.Base;
+using Microsoft.Extensions.Logging;
 
 namespace ConsoleCS_ProjectManagementSystem.Pages
 {
@@ -16,18 +17,20 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
         private readonly UserService _userService;
         private readonly TaskService _taskService;
         private readonly RoleService _roleService;
+        private readonly ILogger _logger;
 
         private Dictionary<string, string> _inputElements = new Dictionary<string, string>();
 
 
         public LoginPage(DefaultUser user, IPageNavigation navigation,
-            UserService userService, TaskService taskService, RoleService roleService)
+            UserService userService, TaskService taskService, RoleService roleService, ILogger<LoginPage> logger)
         {
             _user = user;
             _navigation = navigation;
             _userService = userService;
             _taskService = taskService;
             _roleService = roleService;
+            _logger = logger;
 
             _navigation.Add(this);
 
@@ -40,7 +43,10 @@ namespace ConsoleCS_ProjectManagementSystem.Pages
 
             _user = _userService.GetDefaultUser(_inputElements[LOGIN_VIEW_TEXT], _inputElements[PASSWOR_VIEW_TEXT]);
 
+            _logger.LogInformation($"{_inputElements[LOGIN_VIEW_TEXT]} log-in", this);
+
             _navigation.Open(new MainMenuPage(_user, _navigation, _userService, _taskService, _roleService));
+     
         }
 
         #region override ShowElementsForInputs
