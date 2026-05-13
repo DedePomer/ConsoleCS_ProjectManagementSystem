@@ -7,7 +7,8 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
     {
         private readonly ImmutableList<IElement> _elements;
         private readonly int _cursorPosition;
-
+        private readonly int _windowHeght;
+        private readonly string _nullStroke = "\r                                                            \r";
 
         private ConsoleColor _defaultColor = Console.ForegroundColor;
         private ConsoleColor _highlightColor = ConsoleColor.Green;
@@ -18,15 +19,14 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         {
             _elements = elements.ToImmutableList();
             _cursorPosition = cursorPosition;
+
+            _windowHeght = Console.WindowHeight - cursorPosition;
         }
 
         public int GetNumberSelectedElement(bool ReadKey)
         {
             int topCursorPosition = _cursorPosition;
             int downCursorPosition = _elements.Count() + _cursorPosition;
-
-            int _windowHeight = Console.WindowHeight;
-            int _bufferHeight = Console.BufferHeight;
 
             if (topCursorPosition != downCursorPosition)
             {
@@ -40,16 +40,25 @@ namespace ConsoleCS_ProjectManagementSystem.Infrastructure.Services
         }
 
 
-
         private void HighlightElement(int correntCursorPosition, int pastCursorPosition)
         {
-            Console.SetCursorPosition(0, pastCursorPosition);
+            if(pastCursorPosition >= _windowHeght)
+                Console.SetCursorPosition(0, _windowHeght);
+            else
+                Console.SetCursorPosition(0, pastCursorPosition);
+
             Console.WriteLine(_elements[pastCursorPosition - _cursorPosition].Name);
-            Console.SetCursorPosition(0, correntCursorPosition);
+
+            if (correntCursorPosition >= _windowHeght)
+                Console.SetCursorPosition(0, _windowHeght);
+            else
+                Console.SetCursorPosition(0, correntCursorPosition);
+
             Console.ForegroundColor = _highlightColor;
-            Console.WriteLine(_elements[correntCursorPosition - _cursorPosition].Name);
+            Console.Write(_nullStroke);
+            Console.Write(_elements[correntCursorPosition - _cursorPosition].Name + "\r");
             Console.ForegroundColor = _defaultColor;
-            Console.CursorTop = correntCursorPosition;
+            //Console.CursorTop = correntCursorPosition;
         }
 
 
