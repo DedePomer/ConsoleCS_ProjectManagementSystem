@@ -14,5 +14,6 @@
 - DI
 - Использование Dapper
 - Хеширование данных пользователей
+- Есть логирование действий
 
 <img width="1100" height="610" alt="изображение" src="https://github.com/user-attachments/assets/d3e8ad22-3699-424a-9efe-991b5360a6e8" />
